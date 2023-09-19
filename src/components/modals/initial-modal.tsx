@@ -22,6 +22,8 @@ import {
   Input,
 } from '@/components/ui'
 
+import { FileUpload } from '../file-upload'
+
 const formScheme = z.object({
   name: z.string().min(1, {
     message: 'Server name is a required',
@@ -68,12 +70,24 @@ export const InitialModal: FC = () => {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <div className="space-y-8 px-6">
-              <div className="flex items-center justify-center text-center">TODO: Image Upload</div>
+              <div className="flex items-center justify-center text-center">
+                <FormField
+                  control={form.control}
+                  name="imageUrl"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <FileUpload endpoint="serverImage" value={field.value} onChange={field.onChange} />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+              </div>
 
               <FormField
                 control={form.control}
                 name="name"
-                render={(field) => (
+                render={({ field }) => (
                   <FormItem>
                     <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
                       Server Name

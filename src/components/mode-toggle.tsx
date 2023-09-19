@@ -9,8 +9,6 @@ import { Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMe
 export const ModeToggle = () => {
   const { setTheme } = useTheme()
 
-  const handleSet = React.useCallback((theme: string) => () => setTheme(theme), [])
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -21,9 +19,9 @@ export const ModeToggle = () => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={handleSet('light')}>Light</DropdownMenuItem>
-        <DropdownMenuItem onClick={handleSet('dark')}>Dark</DropdownMenuItem>
-        <DropdownMenuItem onClick={handleSet('system')}>System</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme('light')}>Light</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme('dark')}>Dark</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme('system')}>System</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )
