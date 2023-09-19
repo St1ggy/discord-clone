@@ -1,0 +1,179 @@
+{
+  "extends": ["next/core-web-vitals", "eslint:recommended", "prettier"],
+  "plugins": ["@typescript-eslint", "import", "prettier"],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "parser": "@typescript-eslint/parser",
+    "sourceType": "module",
+    "project": ["tsconfig.json"],
+    "extraFileExtensions": [".js"]
+  },
+  "rules": {
+    "no-console": "warn",
+    "no-debugger": "warn",
+    "@typescript-eslint/no-explicit-any": "off",
+    "prettier/prettier": "error",
+    "object-curly-newline": "off",
+    "operator-linebreak": "off",
+    "function-paren-newline": "off",
+    "no-confusing-arrow": "off",
+    "newline-per-chained-call": "off",
+    "indent": "off",
+    "implicit-arrow-linebreak": "off",
+    "no-undef": "off",
+    "lines-between-class-members": [
+      "error",
+      "always",
+      {
+        "exceptAfterSingleLine": true
+      }
+    ],
+    "prefer-template": "error",
+    "arrow-body-style": ["error", "as-needed"],
+    "no-return-assign": "off",
+    "newline-before-return": ["error"],
+    "radix": "off",
+    "no-mixed-operators": "off",
+    "max-len": [
+      "error",
+      {
+        "code": 120,
+        "tabWidth": 2,
+        "ignoreComments": true,
+        "ignoreRegExpLiterals": true,
+        "ignoreStrings": true,
+        "ignoreTrailingComments": true
+      }
+    ],
+    "camelcase": [
+      "error",
+      {
+        "allow": ["Open_Sans"]
+      }
+    ],
+    "no-shadow": "off",
+    "no-unused-vars": "off",
+    "no-use-before-define": "off",
+    "@typescript-eslint/ban-types": ["warn"],
+    "@typescript-eslint/no-shadow": [
+      "error",
+      {
+        "ignoreTypeValueShadow": true
+      }
+    ],
+    "@typescript-eslint/no-var-requires": ["off"],
+    "@typescript-eslint/no-empty-function": ["off"],
+    "@typescript-eslint/no-use-before-define": ["error"],
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "ignoreRestSiblings": true
+      }
+    ],
+    "@typescript-eslint/ban-ts-comment": [
+      "error",
+      {
+        "ts-expect-error": "allow-with-description",
+        "ts-ignore": "allow-with-description"
+      }
+    ],
+    "import/newline-after-import": "error",
+    "sort-imports": [
+      "error",
+      {
+        "ignoreDeclarationSort": true
+      }
+    ],
+    "import/order": [
+      "error",
+      {
+        "newlines-between": "always",
+        "groups": [["builtin", "external"], ["internal"], ["sibling", "parent", "index", "object"], ["type"]],
+        "pathGroups": [
+          {
+            "pattern": "@/**",
+            "group": "external",
+            "position": "after"
+          }
+        ],
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": false
+        }
+      }
+    ],
+    "quotes": ["error", "single"],
+    "import/no-duplicates": [
+      "error",
+      {
+        "considerQueryString": true
+      }
+    ],
+    "object-shorthand": "error",
+    "prefer-const": "error",
+    "@typescript-eslint/switch-exhaustiveness-check": "error",
+    "@typescript-eslint/consistent-type-imports": [
+      "error",
+      {
+        "fixStyle": "inline-type-imports"
+      }
+    ],
+    "class-methods-use-this": "off",
+    "react/sort-comp": "off",
+    "react/prop-types": "off",
+    "react/jsx-curly-newline": "off",
+    "react/state-in-constructor": "off",
+    "react/require-default-props": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/jsx-filename-extension": "off",
+    "react/destructuring-assignment": "off",
+    "react/static-property-placement": "off",
+    "react/jsx-one-expression-per-line": "off",
+    "react/self-closing-comp": [
+      "error",
+      {
+        "component": true,
+        "html": true
+      }
+    ],
+    "react/default-props-match-prop-types": [
+      "warn",
+      {
+        "allowRequiredDefaults": true
+      }
+    ],
+    "react/jsx-wrap-multilines": "off",
+    "react/jsx-indent": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "error",
+    "import/prefer-default-export": "off",
+    "import/extensions": [
+      "error",
+      "never",
+      {
+        "js": "never",
+        "json": "ignorePackages"
+      }
+    ],
+    "import/no-unresolved": [
+      "error",
+      {
+        "ignore": ["react-native-screens"]
+      }
+    ],
+    "react/function-component-definition": [
+      "error",
+      {
+        "namedComponents": "arrow-function",
+        "unnamedComponents": "arrow-function"
+      }
+    ],
+    "react/jsx-curly-brace-presence": [
+      "warn",
+      {
+        "props": "never",
+        "children": "never"
+      }
+    ]
+  }
+}
