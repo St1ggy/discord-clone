@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation'
 import { type FC } from 'react'
 
+import { InitialModal } from '@/components/modals'
 import { db } from '@/lib/db'
 import { profileInit } from '@/lib/profile-init'
 
@@ -20,7 +21,7 @@ const SetupPage: FC = async () => {
     return redirect(`/servers/${server.id}`)
   }
 
-  return <div>Create a Server</div>
+  return <InitialModal />
 }
 
 export default SetupPage
