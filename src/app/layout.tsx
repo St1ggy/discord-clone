@@ -3,6 +3,8 @@ import { type Metadata } from 'next'
 import { Open_Sans } from 'next/font/google'
 import { type FC, type PropsWithChildren } from 'react'
 
+import { cn } from '@/lib/utils'
+
 import { Providers } from './providers'
 
 const font = Open_Sans({ subsets: ['latin', 'cyrillic'] })
@@ -14,7 +16,7 @@ export const metadata: Metadata = {
 
 const RootLayout: FC<PropsWithChildren> = ({ children }) => (
   <html lang="en" suppressHydrationWarning>
-    <body className={font.className} suppressHydrationWarning>
+    <body className={cn(font.className, 'bg-white dark:bg-[#313338]')} suppressHydrationWarning>
       <Providers>{children}</Providers>
     </body>
   </html>

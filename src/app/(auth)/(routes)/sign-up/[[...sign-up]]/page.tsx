@@ -1,5 +1,5 @@
 import { SignUp } from '@clerk/nextjs'
 
-const Page = () => <SignUp />
+const SignUpPage = () => <SignUp />
 
-export default Page
+export default SignUpPage
