@@ -41,7 +41,9 @@ export const FileUpload: FC<FileUploadProps> = ({ onChange, value, endpoint }) =
       onClientUploadComplete={(res) => {
         onChange(res?.[0].url)
       }}
-      onUploadError={(error) => console.log(error)}
+      onUploadError={(error) => {
+        console.log(error)
+      }}
     />
   )
 }
