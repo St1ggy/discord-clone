@@ -3,7 +3,7 @@
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu'
 import { CheckIcon, ChevronRightIcon, DotFilledIcon } from '@radix-ui/react-icons'
 import * as React from 'react'
-import { type ComponentPropsWithoutRef, type ElementRef, forwardRef } from 'react'
+import { type ComponentPropsWithoutRef, type ElementRef, type HTMLAttributes, forwardRef } from 'react'
 
 import { cn } from '@/lib/utils'
 
