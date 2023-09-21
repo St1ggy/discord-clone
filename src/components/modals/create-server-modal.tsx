@@ -18,7 +18,7 @@ import {
 } from '@/components/ui/dialog'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { ModalType, useModalStore } from '@/hooks/use-modal-store'
+import { ModalType, useModalStore } from '@/hooks'
 
 import { FileUpload } from '../file-upload'
 

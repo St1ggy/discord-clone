@@ -1,21 +1,23 @@
 'use client'
 
-import { type FC, useEffect, useState } from 'react'
+import { type FC, useEffect } from 'react'
 
-import { CreateServerModal } from '@/components/modals'
+import { CreateServerModal, InviteModal } from '@/components/modals'
+import { useBoolean } from '@/hooks'
 
 export const ModalProvider: FC = () => {
-  const [isMounted, setIsMounted] = useState(false)
+  const [isMounted, setIsMountedTrue] = useBoolean()
 
   useEffect(() => {
-    setIsMounted(true)
-  }, [])
+    setIsMountedTrue()
+  }, [setIsMountedTrue])
 
   if (!isMounted) return null
 
   return (
     <>
       <CreateServerModal />
+      <InviteModal />
     </>
   )
 }

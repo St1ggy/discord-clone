@@ -1,11 +1,5 @@
 'use client'
 
-import { useParams } from 'next/navigation'
-
-const ServerIdPage: NextPage = () => {
-  const params = useParams<{ serverId: string }>()
-
-  return <div>Server page {params.serverId}</div>
-}
+const ServerIdPage: NextPage<{ serverId: string }> = ({ params: { serverId } }) => <div>Server page {serverId}</div>
 
 export default ServerIdPage

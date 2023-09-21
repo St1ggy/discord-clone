@@ -19,6 +19,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { ModalType, useModalStore } from '@/hooks'
 import { cn } from '@/lib/utils'
 import { type ServerWithMembersWithProfilesWithChannels } from '@/types'
 
@@ -28,6 +29,8 @@ interface ServerHeaderProps {
 }
 
 export const ServerHeader: FC<ServerHeaderProps> = ({ server, role }) => {
+  const { onOpenModal } = useModalStore()
+
   const isAdmin = role === MemberRole.ADMIM
   const isModerator = isAdmin || role === MemberRole.MODERATOR
 
@@ -44,11 +47,13 @@ export const ServerHeader: FC<ServerHeaderProps> = ({ server, role }) => {
         ],
         visible: isModerator,
         className: 'text-indigo-600 dark:text-indigo-400',
+        onClick: () => onOpenModal({ modalType: ModalType.INVITE, data: { server } }),
       },
       {
         title: 'Server Settings',
         icons: [<GearIcon key="server-settings-icon-0" className="h-4 w-4" />],
         visible: isAdmin,
+        onClick: () => {},
       },
       {
         title: 'Manage Members',
@@ -60,11 +65,13 @@ export const ServerHeader: FC<ServerHeaderProps> = ({ server, role }) => {
           />,
         ],
         visible: isAdmin,
+        onClick: () => {},
       },
       {
         title: 'Create Channel',
         icons: [<PlusCircledIcon key="create-channel-icon-0" className="h-4 w-4 -translate-x-0.5" />],
         visible: isModerator,
+        onClick: () => {},
       },
       {
         title: '',
@@ -75,15 +82,17 @@ export const ServerHeader: FC<ServerHeaderProps> = ({ server, role }) => {
         icons: [<TrashIcon key="delete-server-icon-0" className="h-4 w-4 -translate-x-0.5" />],
         visible: isAdmin,
         className: 'text-rose-500',
+        onClick: () => {},
       },
       {
         title: 'Leave Server',
         icons: [<ExitIcon key="leave-server-icon-0" className="h-4 w-4 -translate-x-0.5" />],
         visible: !isAdmin,
         className: 'text-rose-500',
+        onClick: () => {},
       },
     ],
-    [isModerator, isAdmin],
+    [isModerator, isAdmin, onOpenModal, server],
   )
 
   return (
@@ -95,15 +104,19 @@ export const ServerHeader: FC<ServerHeaderProps> = ({ server, role }) => {
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56 text-xs font-medium text-black dark:text-neutral-400 space-y-[2px]">
-        {items.map((item, index) => {
-          if (!item.visible) return null
+        {items.map(({ visible, title, className, onClick, icons }, index) => {
+          if (!visible) return null
 
-          if (!item.title.length) return <DropdownMenuSeparator key={`separator-${index}`} />
+          if (!title.length) return <DropdownMenuSeparator key={`separator-${index}`} />
 
           return (
-            <DropdownMenuItem key={item.title} className={cn(item.className, 'px-3 py-2 text-sm cursor-pointer')}>
-              {item.title}
-              <div className="ml-auto">{item.icons}</div>
+            <DropdownMenuItem
+              key={title}
+              className={cn(className, 'px-3 py-2 text-sm cursor-pointer')}
+              onClick={onClick}
+            >
+              {title}
+              <div className="ml-auto">{icons}</div>
             </DropdownMenuItem>
           )
         })}

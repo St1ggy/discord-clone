@@ -4,13 +4,13 @@ import { PlusIcon } from '@radix-ui/react-icons'
 import { type FC } from 'react'
 
 import { ActionTooltip } from '@/components/action-tooltip'
-import { ModalType, useModalStore } from '@/hooks/use-modal-store'
+import { ModalType, useModalStore } from '@/hooks'
 
 export const NavigationAction: FC = () => {
   const { onOpenModal } = useModalStore()
 
   const handleClick = () => {
-    onOpenModal(ModalType.CREATE_SERVER)
+    onOpenModal({ modalType: ModalType.CREATE_SERVER })
   }
 
   return (

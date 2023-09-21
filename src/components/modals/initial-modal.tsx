@@ -3,7 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
-import { type FC, useEffect, useState } from 'react'
+import { type FC, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
 
@@ -18,6 +18,7 @@ import {
 } from '@/components/ui/dialog'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { useBoolean } from '@/hooks'
 
 import { FileUpload } from '../file-upload'
 
@@ -33,12 +34,12 @@ const formScheme = z.object({
 type FormType = z.infer<typeof formScheme>
 
 export const InitialModal: FC = () => {
-  const [isMounted, setIsMounted] = useState(false)
+  const [isMounted, setIsMountedTrue] = useBoolean()
   const router = useRouter()
 
   useEffect(() => {
-    setIsMounted(true)
-  }, [])
+    setIsMountedTrue()
+  }, [setIsMountedTrue])
 
   const form = useForm<FormType>({
     defaultValues: {

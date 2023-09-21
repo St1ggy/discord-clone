@@ -30,7 +30,7 @@ const ServerIdLayout: NextLayout<ServerIdLayoutParams> = async ({ children, para
     },
   })
 
-  if (!server) redirect('/')
+  if (!server) return redirect('/')
 
   return (
     <div className="h-full">

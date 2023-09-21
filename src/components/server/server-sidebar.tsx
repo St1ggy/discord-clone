@@ -14,7 +14,7 @@ interface ServerSidebarProps {
 export const ServerSidebar: FC<ServerSidebarProps> = async ({ serverId }) => {
   const profile = await getCurrentProfile()
 
-  if (!profile) redirect('/')
+  if (!profile) return redirect('/')
 
   const server = await db.server.findUnique({
     where: { id: serverId },
@@ -29,7 +29,7 @@ export const ServerSidebar: FC<ServerSidebarProps> = async ({ serverId }) => {
     },
   })
 
-  if (!server) redirect('/')
+  if (!server) return redirect('/')
 
   const channelsByType = server.channels.reduce<Record<ChannelType, Channel[]>>(
     (acc, channel) => {
@@ -56,6 +56,8 @@ export const ServerSidebar: FC<ServerSidebarProps> = async ({ serverId }) => {
   return (
     <div className="flex flex-col h-full text-primary w-full dark:bg-[#2B2D31] bg-[#F2F3F5]">
       <ServerHeader server={server} role={role} />
+      <pre>{JSON.stringify(channelsByType, null, 2)}</pre>
+      <pre>{JSON.stringify(otherMembers, null, 2)}</pre>
     </div>
   )
 }

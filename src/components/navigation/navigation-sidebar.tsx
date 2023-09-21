@@ -14,7 +14,7 @@ import { NavigationAction } from './navigation-action'
 export const NavigationSidebar: FC = async () => {
   const profile = await getCurrentProfile()
 
-  if (!profile) redirect('/')
+  if (!profile) return redirect('/')
 
   const servers = await db.server.findMany({
     where: {
