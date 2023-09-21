@@ -1,5 +1,6 @@
 import { createEvent, createStore } from 'effector'
 import { useStore } from 'effector-react'
+import { useMemo } from 'react'
 
 export enum ModalType {
   CREATE_SERVER,
@@ -7,30 +8,38 @@ export enum ModalType {
   // CREATE_CHANNEL,
 }
 
-interface ModalStore {
+interface State {
   modalType: ModalType | null
   isOpen: boolean
-  onOpenModal: (type: ModalType) => void
+}
+
+interface Events {
+  onOpenModal: (modalType: ModalType | null) => void
   onCloseModal: () => void
 }
 
-const isOpen$ = createStore(false)
-const modalType$ = createStore<ModalType | null>(null)
+interface ModalStore extends State, Events {}
 
-const onOpenModal = createEvent<ModalType | null>()
-const onCloseModal = createEvent()
+const store$ = createStore<State>({
+  isOpen: false,
+  modalType: null,
+})
 
-isOpen$ //
-  .on(onOpenModal, () => true)
-  .reset(onCloseModal)
+const events = {
+  onOpenModal: createEvent<ModalType | null>(),
+  onCloseModal: createEvent(),
+}
 
-modalType$ //
-  .on(onOpenModal, (_, newValue) => newValue)
-  .reset(onCloseModal)
+store$ //
+  .on(events.onOpenModal, (state, modalType) => ({
+    ...state,
+    modalType,
+    isOpen: true,
+  }))
+  .reset(events.onCloseModal)
 
 export const useModalStore = (): ModalStore => {
-  const isOpen = useStore(isOpen$)
-  const modalType = useStore(modalType$)
+  const store = useStore(store$)
 
-  return { isOpen, modalType, onOpenModal, onCloseModal }
+  return useMemo(() => ({ ...store, ...events }), [store])
 }
