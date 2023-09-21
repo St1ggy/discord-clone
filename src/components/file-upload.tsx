@@ -1,6 +1,6 @@
 'use client'
 
-import '@uploadthing/react/styles.css'
+// import '@uploadthing/react/styles.css'
 
 import { TrashIcon } from '@radix-ui/react-icons'
 import Image from 'next/image'
