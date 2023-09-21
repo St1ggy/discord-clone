@@ -1,5 +1,5 @@
 import { SignIn } from '@clerk/nextjs'
 
-const SignInPage = () => <SignIn />
+const SignInPage: NextPage = () => <SignIn />
 
 export default SignInPage

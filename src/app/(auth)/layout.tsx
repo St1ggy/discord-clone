@@ -1,6 +1,4 @@
-import { type FC, type PropsWithChildren } from 'react'
-
-const AuthLayout: FC<PropsWithChildren> = ({ children }) => (
+const AuthLayout: NextLayout = ({ children }) => (
   <div className="h-full flex justify-center items-center">{children}</div>
 )
 

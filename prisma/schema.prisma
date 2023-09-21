@@ -19,7 +19,7 @@ model Profile {
   email    String @db.Text
 
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @default(now()) @updatedAt
 
   servers  Server[]
   members  Member[]
@@ -39,7 +39,7 @@ model Server {
   channels Channel[]
 
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @default(now()) @updatedAt
 
   @@index([profileId])
 }
@@ -61,7 +61,7 @@ model Member {
   server   Server @relation(fields: [serverId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @default(now()) @updatedAt
 
   @@index([profileId])
   @@index([serverId])
@@ -83,6 +83,9 @@ model Channel {
 
   serverId String
   server   Server @relation(fields: [serverId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 
   @@index([profileId])
   @@index([serverId])

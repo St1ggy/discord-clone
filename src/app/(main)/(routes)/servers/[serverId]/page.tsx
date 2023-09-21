@@ -1,9 +1,8 @@
 'use client'
 
 import { useParams } from 'next/navigation'
-import { type FC } from 'react'
 
-const ServerIdPage: FC = () => {
+const ServerIdPage: NextPage = () => {
   const params = useParams<{ serverId: string }>()
 
   return <div>Server page {params.serverId}</div>

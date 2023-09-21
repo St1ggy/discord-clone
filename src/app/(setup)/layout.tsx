@@ -1,6 +1,4 @@
-import { type FC, type PropsWithChildren } from 'react'
-
-const SetupLayout: FC<PropsWithChildren> = ({ children }) => (
+const SetupLayout: NextLayout = ({ children }) => (
   <div className="h-full flex justify-center items-center">{children}</div>
 )
 

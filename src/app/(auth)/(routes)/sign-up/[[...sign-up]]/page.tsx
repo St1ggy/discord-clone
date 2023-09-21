@@ -1,5 +1,5 @@
 import { SignUp } from '@clerk/nextjs'
 
-const SignUpPage = () => <SignUp />
+const SignUpPage: NextPage = () => <SignUp />
 
 export default SignUpPage
