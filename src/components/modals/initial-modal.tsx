@@ -55,7 +55,6 @@ export const InitialModal: FC = () => {
     try {
       await axios.post('/api/servers', values)
 
-      form.reset()
       router.refresh()
       window.location.reload()
     } catch (error) {

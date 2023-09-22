@@ -1,6 +1,6 @@
 'use client'
 
-import { TrashIcon } from '@radix-ui/react-icons'
+import { X } from 'lucide-react'
 import Image from 'next/image'
 import { type FC } from 'react'
 
@@ -26,7 +26,7 @@ export const FileUpload: FC<FileUploadProps> = ({ onChange, value, endpoint }) =
             className="bg-rose-500 text-white p-1 rounded-full absolute top-0 right-0 shadow-sm"
             type="button"
           >
-            <TrashIcon className="h-4 w-4" />
+            <X className="h-4 w-4" />
           </button>
         </div>
       )
@@ -41,6 +41,9 @@ export const FileUpload: FC<FileUploadProps> = ({ onChange, value, endpoint }) =
       }}
       onUploadError={(error) => {
         console.log(error)
+      }}
+      config={{
+        mode: 'auto',
       }}
     />
   )

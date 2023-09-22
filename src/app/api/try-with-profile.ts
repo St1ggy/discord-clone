@@ -13,7 +13,9 @@ export const tryWithProfile = async <R = unknown>(
 
     if (!profile) return new NextResponse('Unauthorized', { status: 401 })
 
-    return NextResponse.json(await cb(profile))
+    const result = await cb(profile)
+
+    return result instanceof NextResponse ? result : NextResponse.json(result || { success: true })
   } catch (error) {
     // eslint-disable-next-line no-console
     meta ? console.log(routeInfo, meta, error) : console.log(routeInfo, error)

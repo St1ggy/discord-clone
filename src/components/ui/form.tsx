@@ -33,12 +33,6 @@ type FormFieldContextValue<
 
 const FormFieldContext = createContext<FormFieldContextValue>({} as FormFieldContextValue)
 
-type FormItemContextValue = {
-  id: string
-}
-
-const FormItemContext = createContext<FormItemContextValue>({} as FormItemContextValue)
-
 const FormField = <
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
@@ -49,6 +43,12 @@ const FormField = <
     <Controller {...props} />
   </FormFieldContext.Provider>
 )
+
+type FormItemContextValue = {
+  id: string
+}
+
+const FormItemContext = createContext<FormItemContextValue>({} as FormItemContextValue)
 
 const useFormField = () => {
   const fieldContext = useContext(FormFieldContext)
@@ -113,9 +113,7 @@ const FormDescription = forwardRef<HTMLParagraphElement, HTMLAttributes<HTMLPara
   ({ className, ...props }, ref) => {
     const { formDescriptionId } = useFormField()
 
-    return (
-      <p ref={ref} id={formDescriptionId} className={cn('text-[0.8rem] text-muted-foreground', className)} {...props} />
-    )
+    return <p ref={ref} id={formDescriptionId} className={cn('text-sm text-muted-foreground', className)} {...props} />
   },
 )
 FormDescription.displayName = 'FormDescription'
@@ -130,12 +128,7 @@ const FormMessage = forwardRef<HTMLParagraphElement, HTMLAttributes<HTMLParagrap
     }
 
     return (
-      <p
-        ref={ref}
-        id={formMessageId}
-        className={cn('text-[0.8rem] font-medium text-destructive', className)}
-        {...props}
-      >
+      <p ref={ref} id={formMessageId} className={cn('text-sm font-medium text-destructive', className)} {...props}>
         {body}
       </p>
     )

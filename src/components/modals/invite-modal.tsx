@@ -1,7 +1,7 @@
 'use client'
 
-import { CheckIcon, CopyIcon, UpdateIcon } from '@radix-ui/react-icons'
 import axios from 'axios'
+import { Check, Copy, RefreshCw } from 'lucide-react'
 import { type FC } from 'react'
 
 import { Button } from '@/components/ui/button'
@@ -56,7 +56,7 @@ export const InviteModal: FC = () => {
               onFocusCapture={(e) => e.target.blur()}
             />
             <Button disabled={isLoading} size="icon" onClick={copy}>
-              {isCopied ? <CheckIcon className="w-4 h-4" /> : <CopyIcon className="w-4 h-4" />}
+              {isCopied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
             </Button>
           </div>
           <Button
@@ -67,7 +67,7 @@ export const InviteModal: FC = () => {
             onClick={generateLink}
           >
             Generate a new link
-            <UpdateIcon className={cn('w-4 h-4 ml-2', { 'animate-spin': isLoading })} />
+            <RefreshCw className={cn('w-4 h-4 ml-2', { 'animate-spin': isLoading })} />
           </Button>
         </div>
       </DialogContent>

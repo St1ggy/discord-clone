@@ -3,6 +3,8 @@ import { createEvent, createStore } from 'effector'
 import { useStore } from 'effector-react'
 import { useMemo } from 'react'
 
+import { type ServerWithMembersWithProfilesWithChannels } from '@/types'
+
 export enum ModalType {
   CREATE_SERVER,
   INVITE,
@@ -11,7 +13,7 @@ export enum ModalType {
 }
 
 interface ModalData {
-  server?: Server
+  server?: ServerWithMembersWithProfilesWithChannels
 }
 
 interface State {
