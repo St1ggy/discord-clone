@@ -28,7 +28,7 @@ export const POST = async (req: NextRequest) =>
           create: [
             {
               profileId: profile.id,
-              role: MemberRole.ADMIM,
+              role: MemberRole.ADMIN,
             },
           ],
         },

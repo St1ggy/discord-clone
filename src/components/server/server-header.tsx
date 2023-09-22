@@ -45,7 +45,7 @@ export const ServerHeader: FC<ServerHeaderProps> = ({ server, role }) => {
         title: 'Manage Members',
         IconComponent: UserCog,
         visible: isAdmin,
-        onClick: () => {},
+        onClick: () => onOpenModal({ modalType: ModalType.MEMBERS, data: { server } }),
       },
       {
         title: 'Create Channel',

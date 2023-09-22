@@ -9,6 +9,7 @@ export enum ModalType {
   CREATE_SERVER,
   INVITE,
   EDIT_SERVER,
+  MEMBERS,
   // CREATE_CHANNEL,
 }
 
