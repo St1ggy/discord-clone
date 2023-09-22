@@ -53,7 +53,7 @@ export const ServerHeader: FC<ServerHeaderProps> = ({ server, role }) => {
         title: 'Server Settings',
         icons: [<GearIcon key="server-settings-icon-0" className="h-4 w-4" />],
         visible: isAdmin,
-        onClick: () => {},
+        onClick: () => onOpenModal({ modalType: ModalType.EDIT_SERVER, data: { server } }),
       },
       {
         title: 'Manage Members',

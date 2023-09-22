@@ -6,7 +6,7 @@ import { useMemo } from 'react'
 export enum ModalType {
   CREATE_SERVER,
   INVITE,
-  // EDIT_SERVER,
+  EDIT_SERVER,
   // CREATE_CHANNEL,
 }
 

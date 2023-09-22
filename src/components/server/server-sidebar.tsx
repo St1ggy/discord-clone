@@ -56,8 +56,8 @@ export const ServerSidebar: FC<ServerSidebarProps> = async ({ serverId }) => {
   return (
     <div className="flex flex-col h-full text-primary w-full dark:bg-[#2B2D31] bg-[#F2F3F5]">
       <ServerHeader server={server} role={role} />
-      <pre>{JSON.stringify(channelsByType, null, 2)}</pre>
-      <pre>{JSON.stringify(otherMembers, null, 2)}</pre>
+      {/* <pre>{JSON.stringify(channelsByType, null, 2)}</pre>*/}
+      {/* <pre>{JSON.stringify(otherMembers, null, 2)}</pre>*/}
     </div>
   )
 }
