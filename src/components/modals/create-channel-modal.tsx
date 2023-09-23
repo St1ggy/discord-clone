@@ -42,7 +42,7 @@ export const CreateChannelModal: FC = () => {
 
   const isModalOpen = isOpen && modalType === ModalType.CREATE_CHANNEL
 
-  const formScheme = useMemo(() => createFormScheme(server?.channels.map(({ name }) => name)), [server])
+  const formScheme = useMemo(() => createFormScheme(server?.channels?.map(({ name }) => name)) ?? [], [server])
 
   type FormType = z.infer<typeof formScheme>
   const form = useForm<FormType>({
@@ -128,7 +128,7 @@ export const CreateChannelModal: FC = () => {
               />
             </div>
             <DialogFooter className="bg-gray-100 px-6 py-4">
-              <Button disabled={isLoading} variant="primary">
+              <Button disabled={isLoading} isLoading={isLoading} variant="primary">
                 Create
               </Button>
             </DialogFooter>

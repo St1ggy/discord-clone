@@ -1,11 +1,13 @@
-import { type Channel, ChannelType, type Member, type MemberRole } from '@prisma/client'
 import { redirect } from 'next/navigation'
 import { type FC } from 'react'
 
+import { ScrollArea } from '@/components/ui/scroll-area'
 import { db } from '@/lib/db'
 import { getCurrentProfile } from '@/lib/get-current-profile'
 
 import { ServerHeader } from './server-header'
+import { ServerSearch } from './server-search'
+import { buildSidebarData } from './utils'
 
 interface ServerSidebarProps {
   serverId: string
@@ -31,33 +33,16 @@ export const ServerSidebar: FC<ServerSidebarProps> = async ({ serverId }) => {
 
   if (!server) return redirect('/')
 
-  const channelsByType = server.channels.reduce<Record<ChannelType, Channel[]>>(
-    (acc, channel) => {
-      acc[channel.type].push(channel)
-
-      return acc
-    },
-    { [ChannelType.TEXT]: [], [ChannelType.AUDIO]: [], [ChannelType.VIDEO]: [] },
-  )
-
-  const { otherMembers, role } = server.members.reduce<{ otherMembers: Member[]; role: MemberRole | null }>(
-    (acc, member) => {
-      if (member.profileId === profile.id) {
-        acc.role = member.role
-      } else {
-        acc.otherMembers.push(member)
-      }
-
-      return acc
-    },
-    { otherMembers: [], role: null },
-  )
+  const { data, role } = buildSidebarData(profile, server)
 
   return (
     <div className="flex flex-col h-full text-primary w-full dark:bg-[#2B2D31] bg-[#F2F3F5]">
       <ServerHeader server={server} role={role} />
-      {/* <pre>{JSON.stringify(channelsByType, null, 2)}</pre>*/}
-      {/* <pre>{JSON.stringify(otherMembers, null, 2)}</pre>*/}
+      <ScrollArea className="flex-1 px-3">
+        <div className="mt-2">
+          <ServerSearch data={data} />
+        </div>
+      </ScrollArea>
     </div>
   )
 }

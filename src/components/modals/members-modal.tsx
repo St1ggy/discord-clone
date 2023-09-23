@@ -2,7 +2,7 @@
 
 import { MemberRole } from '@prisma/client'
 import axios from 'axios'
-import { Check, Gavel, Loader2, MoreVertical, Shield, ShieldAlert, ShieldOff, ShieldQuestion } from 'lucide-react'
+import { Check, Gavel, Loader2, MoreVertical, Shield, ShieldAlert, ShieldQuestion } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { type FC, useState } from 'react'
 
@@ -25,7 +25,7 @@ import { cn } from '@/lib/utils'
 
 const roleMaps = {
   icons: {
-    [MemberRole.GUEST]: (className?: string) => <ShieldOff className={cn('w-4 h-4', className)} />,
+    [MemberRole.GUEST]: () => null,
     [MemberRole.MODERATOR]: (className?: string) => <Shield className={cn('w-4 h-4 text-indigo-500', className)} />,
     [MemberRole.ADMIN]: (className?: string) => <ShieldAlert className={cn('w-4 h-4 text-rose-500', className)} />,
   },
@@ -90,7 +90,7 @@ export const MembersModal: FC = () => {
           <DialogDescription className="text-center text-zinc-500">{server?.members?.length} Members</DialogDescription>
         </DialogHeader>
         <ScrollArea className="mt-8 max-h-[420px]">
-          {server?.members.map((member) => (
+          {server?.members?.map((member) => (
             <div key={member.id} className="flex items-center gap-x-2 mb-6">
               <UserAvatar src={member.profile.imageUrl} />
               <div className="flex flex-col gap-y-1">

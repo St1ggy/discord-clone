@@ -67,7 +67,7 @@ export const InviteModal: FC = () => {
             onClick={generateLink}
           >
             Generate a new link
-            <RefreshCw className={cn('w-4 h-4 ml-2', { 'animate-spin': isLoading })} />
+            <RefreshCw className={cn('w-4 h-4 ml-2 inline-block', { 'animate-spin': isLoading })} />
           </Button>
         </div>
       </DialogContent>

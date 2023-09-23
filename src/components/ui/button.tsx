@@ -44,7 +44,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <Comp className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props}>
         {isLoading && <Loader2 className="animate-spin absolute" />}
-        <span className={cn({ 'text-transparent': isLoading })}>{children}</span>
+        <span className={cn(className, { 'text-transparent': isLoading })}>{children}</span>
       </Comp>
     )
   },
