@@ -1,7 +1,7 @@
 'use client'
 
 import { MemberRole } from '@prisma/client'
-import { ChevronDown, LogOut, PlusCircle, Settings, Trash, UserCog, UserPlus } from 'lucide-react'
+import { ChevronDown, LogOut, type LucideProps, PlusCircle, Settings, Trash, UserCog, UserPlus } from 'lucide-react'
 import { type FC, useMemo } from 'react'
 
 import {
@@ -20,60 +20,74 @@ interface ServerHeaderProps {
   role: MemberRole | null
 }
 
+type MenuItem =
+  | {
+      title: string
+      IconComponent: FC<LucideProps>
+      className?: string
+      onClick: VoidFunction
+    }
+  | 'separator'
+
 export const ServerHeader: FC<ServerHeaderProps> = ({ server, role }) => {
   const { onOpenModal } = useModalStore()
 
   const isAdmin = role === MemberRole.ADMIN
   const isModerator = isAdmin || role === MemberRole.MODERATOR
 
-  const items = useMemo(
-    () => [
-      {
+  const items = useMemo(() => {
+    const result: MenuItem[] = []
+
+    if (isModerator)
+      result.push({
         title: 'Invite People',
         IconComponent: UserPlus,
-        visible: isModerator,
         className: 'text-indigo-600 dark:text-indigo-400',
         onClick: () => onOpenModal({ modalType: ModalType.INVITE, data: { server } }),
-      },
-      {
-        title: 'Server Settings',
-        IconComponent: Settings,
-        visible: isAdmin,
-        onClick: () => onOpenModal({ modalType: ModalType.EDIT_SERVER, data: { server } }),
-      },
-      {
-        title: 'Manage Members',
-        IconComponent: UserCog,
-        visible: isAdmin,
-        onClick: () => onOpenModal({ modalType: ModalType.MEMBERS, data: { server } }),
-      },
-      {
-        title: 'Create Channel',
-        IconComponent: PlusCircle,
-        visible: isModerator,
-        onClick: () => onOpenModal({ modalType: ModalType.CREATE_CHANNEL, data: { server } }),
-      },
-      {
-        title: '',
-        visible: isModerator,
-      },
-      {
-        title: 'Delete Server',
-        IconComponent: Trash,
-        visible: isAdmin,
-        className: 'text-rose-500',
-        onClick: () => {},
-      },
-      {
-        title: 'Leave Server',
-        IconComponent: LogOut,
-        visible: !isAdmin,
-        className: 'text-rose-500',
-        onClick: () => {},
-      },
-    ],
-    [isModerator, isAdmin, onOpenModal, server],
-  )
+      })
+
+    if (isAdmin)
+      result.push(
+        {
+          title: 'Server Settings',
+          IconComponent: Settings,
+          onClick: () => onOpenModal({ modalType: ModalType.EDIT_SERVER, data: { server } }),
+        },
+        {
+          title: 'Manage Members',
+          IconComponent: UserCog,
+          onClick: () => onOpenModal({ modalType: ModalType.MEMBERS, data: { server } }),
+        },
+      )
+
+    if (isModerator)
+      result.push(
+        {
+          title: 'Create Channel',
+          IconComponent: PlusCircle,
+          onClick: () => onOpenModal({ modalType: ModalType.CREATE_CHANNEL, data: { server } }),
+        },
+        'separator',
+      )
+
+    result.push(
+      isAdmin
+        ? {
+            title: 'Delete Server',
+            IconComponent: Trash,
+            className: 'text-rose-500',
+            onClick: () => onOpenModal({ modalType: ModalType.DELETE_SERVER, data: { server } }),
+          }
+        : {
+            title: 'Leave Server',
+            IconComponent: LogOut,
+            className: 'text-rose-500',
+            onClick: () => onOpenModal({ modalType: ModalType.LEAVE_SERVER, data: { server } }),
+          },
+    )
+
+    return result
+  }, [isModerator, isAdmin, onOpenModal, server])
 
   return (
     <DropdownMenu>
@@ -84,10 +98,9 @@ export const ServerHeader: FC<ServerHeaderProps> = ({ server, role }) => {
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56 text-xs font-medium text-black dark:text-neutral-400 space-y-[2px]">
-        {items.map(({ visible, title, className, onClick, IconComponent }, index) => {
-          if (!visible) return null
-
-          if (!title.length) return <DropdownMenuSeparator key={`separator-${index}`} />
+        {items.map((item, index) => {
+          if (item === 'separator') return <DropdownMenuSeparator key={`separator-${index}`} />
+          const { title, className, onClick, IconComponent } = item
 
           return (
             <DropdownMenuItem

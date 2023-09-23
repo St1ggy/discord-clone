@@ -10,10 +10,14 @@ export const PATCH = async (req: Request, { params: { serverId } }: { params: { 
       if (!serverId) return new NextResponse('Server ID Missing', { status: 400 })
 
       return db.server.update({
-        where: { id: serverId, profileId: profile.id },
-        data: { inviteCode: uuidv4() },
+        where: {
+          id: serverId,
+          profileId: { not: profile.id },
+          members: { some: { profileId: profile.id } },
+        },
+        data: { members: { deleteMany: { profileId: profile.id } } },
       })
     },
-    'servers/[serverId]/invite-code [PATCH]',
+    'servers/[serverId]/leave [PATCH]',
     { serverId },
   )

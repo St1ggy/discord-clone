@@ -18,3 +18,16 @@ export const PATCH = async (req: Request, { params: { serverId } }: { params: { 
     'servers/[serverId] [POST]',
     { serverId },
   )
+
+export const DELETE = async (req: Request, { params: { serverId } }: { params: { serverId?: string } }) =>
+  tryWithProfile(
+    async (profile) => {
+      if (!serverId) return new NextResponse('Server ID Missing', { status: 400 })
+
+      return db.server.deleteMany({
+        where: { id: serverId, profileId: profile.id },
+      })
+    },
+    'servers/[serverId] [POST]',
+    { serverId },
+  )

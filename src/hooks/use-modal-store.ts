@@ -10,6 +10,8 @@ export enum ModalType {
   EDIT_SERVER,
   MEMBERS,
   CREATE_CHANNEL,
+  LEAVE_SERVER,
+  DELETE_SERVER,
 }
 
 interface ModalData {
@@ -23,8 +25,7 @@ interface State {
 }
 
 type ModalsWithoutData = ModalType.CREATE_SERVER
-
-type OnOpenModalData =
+type ServerModalData =
   | {
       modalType: Exclude<ModalType, ModalsWithoutData>
       data: ModalData
@@ -32,6 +33,8 @@ type OnOpenModalData =
   | {
       modalType: Extract<ModalType, ModalsWithoutData>
     }
+
+type OnOpenModalData = ServerModalData
 
 interface Events {
   onOpenModal: (data: OnOpenModalData) => void
