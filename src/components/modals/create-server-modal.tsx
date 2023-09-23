@@ -40,11 +40,11 @@ export const CreateServerModal: FC = () => {
   const isModalOpen = isOpen && modalType === ModalType.CREATE_SERVER
 
   const form = useForm<FormType>({
+    resolver: zodResolver(formScheme),
     defaultValues: {
       name: '',
       imageUrl: '',
     },
-    resolver: zodResolver(formScheme),
   })
 
   const isLoading = form.formState.isSubmitting

@@ -1,12 +1,11 @@
 import { MemberRole } from '@prisma/client'
-import { type NextRequest } from 'next/server'
 import { v4 as uuidv4 } from 'uuid'
 
 import { db } from '@/lib/db'
 
 import { tryWithProfile } from '../try-with-profile'
 
-export const POST = async (req: NextRequest) =>
+export const POST = async (req: Request) =>
   tryWithProfile(async (profile) => {
     const { name, imageUrl } = await req.json()
 

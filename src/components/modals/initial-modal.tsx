@@ -42,11 +42,11 @@ export const InitialModal: FC = () => {
   }, [setIsMountedTrue])
 
   const form = useForm<FormType>({
+    resolver: zodResolver(formScheme),
     defaultValues: {
       name: '',
       imageUrl: '',
     },
-    resolver: zodResolver(formScheme),
   })
 
   const isLoading = form.formState.isSubmitting

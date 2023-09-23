@@ -1,7 +1,7 @@
 'use client'
 
 import { MemberRole } from '@prisma/client'
-import { ChevronDown, LogOut, Plus, PlusCircle, Settings, Trash, UserCog, UserPlus } from 'lucide-react'
+import { ChevronDown, LogOut, PlusCircle, Settings, Trash, UserCog, UserPlus } from 'lucide-react'
 import { type FC, useMemo } from 'react'
 
 import {
@@ -51,7 +51,7 @@ export const ServerHeader: FC<ServerHeaderProps> = ({ server, role }) => {
         title: 'Create Channel',
         IconComponent: PlusCircle,
         visible: isModerator,
-        onClick: () => {},
+        onClick: () => onOpenModal({ modalType: ModalType.CREATE_CHANNEL, data: { server } }),
       },
       {
         title: '',

@@ -1,4 +1,3 @@
-import { type Server } from '@prisma/client'
 import { createEvent, createStore } from 'effector'
 import { useStore } from 'effector-react'
 import { useMemo } from 'react'
@@ -10,7 +9,7 @@ export enum ModalType {
   INVITE,
   EDIT_SERVER,
   MEMBERS,
-  // CREATE_CHANNEL,
+  CREATE_CHANNEL,
 }
 
 interface ModalData {
@@ -23,10 +22,16 @@ interface State {
   data: ModalData
 }
 
-type OnOpenModalData = {
-  modalType: State['modalType']
-  data?: ModalData
-}
+type ModalsWithoutData = ModalType.CREATE_SERVER
+
+type OnOpenModalData =
+  | {
+      modalType: Exclude<ModalType, ModalsWithoutData>
+      data: ModalData
+    }
+  | {
+      modalType: Extract<ModalType, ModalsWithoutData>
+    }
 
 interface Events {
   onOpenModal: (data: OnOpenModalData) => void

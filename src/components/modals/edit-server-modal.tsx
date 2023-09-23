@@ -45,11 +45,11 @@ export const EditServerModal: FC = () => {
   const isModalOpen = isOpen && modalType === ModalType.EDIT_SERVER
 
   const form = useForm<FormType>({
+    resolver: zodResolver(formScheme),
     defaultValues: {
       name: '',
       imageUrl: '',
     },
-    resolver: zodResolver(formScheme),
   })
 
   useEffect(() => {
