@@ -1,3 +1,4 @@
+import { type ChannelType } from '@prisma/client'
 import { createEvent, createStore } from 'effector'
 import { useStore } from 'effector-react'
 import { useMemo } from 'react'
@@ -16,6 +17,7 @@ export enum ModalType {
 
 interface ModalData {
   server?: ServerWithMembersWithProfilesWithChannels
+  channelType?: ChannelType
 }
 
 interface State {
@@ -24,7 +26,7 @@ interface State {
   data: ModalData
 }
 
-type ModalsWithoutData = ModalType.CREATE_SERVER
+type ModalsWithoutData = Extract<ModalType, ModalType.CREATE_SERVER>
 type ServerModalData =
   | {
       modalType: Exclude<ModalType, ModalsWithoutData>

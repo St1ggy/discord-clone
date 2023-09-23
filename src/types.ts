@@ -19,7 +19,7 @@ export interface ServerWithMembersWithProfilesWithChannels
     }
   }> {}
 
-export enum SearchItemType {
-  CHANNEL,
-  MEMBER,
+export enum ListItemCategory {
+  CHANNELS,
+  MEMBERS,
 }

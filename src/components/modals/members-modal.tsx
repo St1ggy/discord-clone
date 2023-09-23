@@ -2,7 +2,7 @@
 
 import { MemberRole } from '@prisma/client'
 import axios from 'axios'
-import { Check, Gavel, Loader2, MoreVertical, Shield, ShieldAlert, ShieldQuestion } from 'lucide-react'
+import { Check, Gavel, Loader2, MoreVertical, ShieldQuestion } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { type FC, useState } from 'react'
 
@@ -21,20 +21,7 @@ import {
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { UserAvatar } from '@/components/user-avatar'
 import { ModalType, useModalStore } from '@/hooks'
-import { cn } from '@/lib/utils'
-
-const roleMaps = {
-  icons: {
-    [MemberRole.GUEST]: () => null,
-    [MemberRole.MODERATOR]: (className?: string) => <Shield className={cn('w-4 h-4 text-indigo-500', className)} />,
-    [MemberRole.ADMIN]: (className?: string) => <ShieldAlert className={cn('w-4 h-4 text-rose-500', className)} />,
-  },
-  labels: {
-    [MemberRole.GUEST]: 'Guest',
-    [MemberRole.MODERATOR]: 'Moderator',
-    [MemberRole.ADMIN]: 'Admin',
-  },
-}
+import { iconMaps, labelsMaps } from '@/lib/maps'
 
 export const MembersModal: FC = () => {
   const {
@@ -96,7 +83,7 @@ export const MembersModal: FC = () => {
               <div className="flex flex-col gap-y-1">
                 <div className="text-xs font-semibold flex items-center gap-x-1">
                   {member.profile.name}
-                  {roleMaps.icons[member.role]()}
+                  {iconMaps.roles[member.role]()}
                 </div>
                 <p className="text-xs text-zinc-500">{member.profile.email}</p>
               </div>
@@ -116,8 +103,8 @@ export const MembersModal: FC = () => {
                           <DropdownMenuSubContent>
                             {Object.values(MemberRole).map((role) => (
                               <DropdownMenuItem key={role} onClick={() => changeRole(member.id, role)}>
-                                {roleMaps.icons[role]('mr-2 text-primary')}
-                                {roleMaps.labels[role]}
+                                {iconMaps.roles[role]('mr-2 text-primary')}
+                                {labelsMaps.roles[role]}
                                 {member.role === role && <Check className="h-4 w-4 ml-auto" />}
                               </DropdownMenuItem>
                             ))}

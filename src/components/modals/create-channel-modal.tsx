@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { ChannelType } from '@prisma/client'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
-import { type FC, useMemo } from 'react'
+import { type FC, useEffect, useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
 
@@ -37,7 +37,7 @@ export const CreateChannelModal: FC = () => {
     isOpen,
     onCloseModal,
     modalType,
-    data: { server },
+    data: { server, channelType: defaultType },
   } = useModalStore()
 
   const isModalOpen = isOpen && modalType === ModalType.CREATE_CHANNEL
@@ -52,6 +52,12 @@ export const CreateChannelModal: FC = () => {
       channelType: ChannelType.TEXT,
     },
   })
+
+  useEffect(() => {
+    if (defaultType) {
+      form.setValue('channelType', defaultType)
+    }
+  }, [defaultType, form])
 
   const isLoading = form.formState.isSubmitting
 

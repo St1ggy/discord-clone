@@ -17,7 +17,7 @@ import { type ServerWithMembersWithProfilesWithChannels } from '@/types'
 
 interface ServerHeaderProps {
   server: ServerWithMembersWithProfilesWithChannels
-  role: MemberRole | null
+  role?: MemberRole
 }
 
 type MenuItem =
