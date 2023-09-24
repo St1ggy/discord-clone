@@ -5,4 +5,6 @@ declare global {
   type NextLayout<Params = void> = FC<PropsWithChildren<Params extends void ? void : { params: Params }>>
 
   type EmptyRecord = Record<string, never>
+
+  type PickOptional<O, Keys extends keyof O = keyof O> = Partial<Pick<O, Keys>>
 }

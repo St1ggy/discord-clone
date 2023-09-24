@@ -15,7 +15,7 @@ export const PATCH = async (req: Request, { params: { serverId } }: { params: { 
         data: { name, imageUrl },
       })
     },
-    'servers/[serverId] [POST]',
+    'servers/[serverId] [PATCH]',
     { serverId },
   )
 
@@ -28,6 +28,6 @@ export const DELETE = async (req: Request, { params: { serverId } }: { params: {
         where: { id: serverId, profileId: profile.id },
       })
     },
-    'servers/[serverId] [POST]',
+    'servers/[serverId] [DELETE]',
     { serverId },
   )

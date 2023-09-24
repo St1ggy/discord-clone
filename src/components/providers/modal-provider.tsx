@@ -3,13 +3,15 @@
 import { type FC, useEffect } from 'react'
 
 import {
-  CreateChannelModal,
-  CreateServerModal,
-  DeleteServerModal,
-  EditServerModal,
+  ChannelCreateModal,
+  ChannelDeleteModal,
+  ChannelEditModal,
   InviteModal,
-  LeaveServerModal,
   MembersModal,
+  ServerCreateModal,
+  ServerDeleteModal,
+  ServerEditModal,
+  ServerLeaveModal,
 } from '@/components/modals'
 import { useBoolean } from '@/hooks'
 
@@ -24,13 +26,18 @@ export const ModalProvider: FC = () => {
 
   return (
     <>
-      <CreateServerModal />
+      <ServerCreateModal />
+      <ServerEditModal />
+      <ServerLeaveModal />
+      <ServerDeleteModal />
+
       <InviteModal />
-      <EditServerModal />
+
+      <ChannelCreateModal />
+      <ChannelDeleteModal />
+      <ChannelEditModal />
+
       <MembersModal />
-      <CreateChannelModal />
-      <LeaveServerModal />
-      <DeleteServerModal />
     </>
   )
 }

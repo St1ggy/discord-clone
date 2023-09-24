@@ -15,7 +15,7 @@ import {
 } from '@/components/ui/dialog'
 import { ModalType, useBoolean, useModalStore } from '@/hooks'
 
-export const LeaveServerModal: FC = () => {
+export const ServerLeaveModal: FC = () => {
   const router = useRouter()
   const {
     isModalOpen,

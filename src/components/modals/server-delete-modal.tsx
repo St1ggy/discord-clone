@@ -15,7 +15,7 @@ import {
 } from '@/components/ui/dialog'
 import { ModalType, useBoolean, useModalStore } from '@/hooks'
 
-export const DeleteServerModal: FC = () => {
+export const ServerDeleteModal: FC = () => {
   const router = useRouter()
   const {
     isModalOpen,

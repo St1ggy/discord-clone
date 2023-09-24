@@ -6,21 +6,21 @@ import { useCallback } from 'react'
 import { type ServerWithMembersWithProfilesWithChannels } from '@/types'
 
 export enum ModalType {
-  CREATE_SERVER,
-  INVITE,
-  EDIT_SERVER,
-  MEMBERS,
-  CREATE_CHANNEL,
-  LEAVE_SERVER,
-  DELETE_SERVER,
-  DELETE_CHANNEL,
-  EDIT_CHANNEL,
+  CREATE_SERVER = 'CREATE_SERVER',
+  INVITE = 'INVITE',
+  EDIT_SERVER = 'EDIT_SERVER',
+  MEMBERS = 'MEMBERS',
+  CREATE_CHANNEL = 'CREATE_CHANNEL',
+  LEAVE_SERVER = 'LEAVE_SERVER',
+  DELETE_SERVER = 'DELETE_SERVER',
+  DELETE_CHANNEL = 'DELETE_CHANNEL',
+  EDIT_CHANNEL = 'EDIT_CHANNEL',
 }
 
 interface PossibleModalData {
   server: ServerWithMembersWithProfilesWithChannels
   channel: Channel
-  channelType?: ChannelType
+  channelType: ChannelType
 }
 
 type ModalDataMapper = {
@@ -28,7 +28,7 @@ type ModalDataMapper = {
   [ModalType.INVITE]: Pick<PossibleModalData, 'server'>
   [ModalType.EDIT_SERVER]: Pick<PossibleModalData, 'server'>
   [ModalType.MEMBERS]: Pick<PossibleModalData, 'server'>
-  [ModalType.CREATE_CHANNEL]: Pick<PossibleModalData, 'server' | 'channelType'>
+  [ModalType.CREATE_CHANNEL]: Pick<PossibleModalData, 'server'> & PickOptional<PossibleModalData, 'channelType'>
   [ModalType.LEAVE_SERVER]: Pick<PossibleModalData, 'server'>
   [ModalType.DELETE_SERVER]: Pick<PossibleModalData, 'server'>
   [ModalType.DELETE_CHANNEL]: Pick<PossibleModalData, 'server' | 'channel'>

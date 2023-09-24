@@ -31,7 +31,7 @@ const createFormScheme = (restrictedChannelNames = ['general']) =>
     channelType: z.nativeEnum(ChannelType),
   })
 
-export const CreateChannelModal: FC = () => {
+export const ChannelCreateModal: FC = () => {
   const router = useRouter()
   const {
     isModalOpen,
@@ -100,6 +100,10 @@ export const CreateChannelModal: FC = () => {
                         className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
                         placeholder="Channel Name"
                         {...field}
+                        onChange={(e) => {
+                          e.target.value = e.target.value.replace(/[\s|-]+/g, '-') ?? ''
+                          field.onChange(e)
+                        }}
                       />
                     </FormControl>
                     <FormMessage />

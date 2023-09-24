@@ -1,9 +1,8 @@
 import { MemberRole } from '@prisma/client'
 import { NextResponse } from 'next/server'
 
+import { tryWithProfile } from '@/app/api/try-with-profile'
 import { db } from '@/lib/db'
-
-import { tryWithProfile } from '../try-with-profile'
 
 export const POST = async (req: Request) =>
   tryWithProfile(async (profile) => {
