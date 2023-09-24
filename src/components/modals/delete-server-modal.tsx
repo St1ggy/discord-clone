@@ -14,19 +14,15 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { ModalType, useBoolean, useModalStore } from '@/hooks'
-import { cn } from '@/lib/utils'
 
 export const DeleteServerModal: FC = () => {
   const router = useRouter()
   const {
-    isOpen,
+    isModalOpen,
     onCloseModal,
-    modalType,
-    data: { server },
-  } = useModalStore()
+    modalData: { server },
+  } = useModalStore(ModalType.DELETE_SERVER)
   const [isLoading, setIsLoadingTrue, setIsLoadingFalse] = useBoolean()
-
-  const isModalOpen = isOpen && modalType === ModalType.DELETE_SERVER
 
   const confirm = async () => {
     try {

@@ -36,13 +36,10 @@ type FormType = z.infer<typeof formScheme>
 export const EditServerModal: FC = () => {
   const router = useRouter()
   const {
-    isOpen,
+    isModalOpen,
     onCloseModal,
-    modalType,
-    data: { server },
-  } = useModalStore()
-
-  const isModalOpen = isOpen && modalType === ModalType.EDIT_SERVER
+    modalData: { server },
+  } = useModalStore(ModalType.EDIT_SERVER)
 
   const form = useForm<FormType>({
     resolver: zodResolver(formScheme),

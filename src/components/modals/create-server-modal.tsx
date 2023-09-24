@@ -35,9 +35,7 @@ type FormType = z.infer<typeof formScheme>
 
 export const CreateServerModal: FC = () => {
   const router = useRouter()
-  const { isOpen, onCloseModal, modalType } = useModalStore()
-
-  const isModalOpen = isOpen && modalType === ModalType.CREATE_SERVER
+  const { isModalOpen, onCloseModal } = useModalStore(ModalType.CREATE_SERVER)
 
   const form = useForm<FormType>({
     resolver: zodResolver(formScheme),

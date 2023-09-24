@@ -13,15 +13,12 @@ import { cn } from '@/lib/utils'
 
 export const InviteModal: FC = () => {
   const {
-    isOpen,
+    isModalOpen,
     onOpenModal,
     onCloseModal,
-    modalType,
-    data: { server },
-  } = useModalStore()
+    modalData: { server },
+  } = useModalStore(ModalType.INVITE)
   const [isLoading, setIsLoadingTrue, setIsLoadingFalse] = useBoolean()
-
-  const isModalOpen = isOpen && modalType === ModalType.INVITE
 
   const origin = useOrigin()
   const inviteLink = `${origin}/invite/${server?.inviteCode}`
@@ -31,7 +28,7 @@ export const InviteModal: FC = () => {
     try {
       setIsLoadingTrue()
       const { data: newServer } = await axios.patch(`/api/servers/${server?.id}/invite-code`)
-      onOpenModal({ modalType: ModalType.INVITE, data: { server: newServer } })
+      onOpenModal(ModalType.MEMBERS, { server: newServer })
     } catch (error) {
       console.log(error)
     } finally {

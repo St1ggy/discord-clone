@@ -6,9 +6,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { ModalType, useModalStore } from '@/hooks'
 
 export const ModalTemplate: FC = () => {
-  const { isOpen, onCloseModal, modalType } = useModalStore()
-
-  const isModalOpen = isOpen && modalType === ModalType.INVITE
+  const { isModalOpen, onCloseModal } = useModalStore(ModalType.INVITE)
 
   return (
     <Dialog open={isModalOpen} onOpenChange={onCloseModal}>

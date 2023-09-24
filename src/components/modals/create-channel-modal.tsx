@@ -34,15 +34,15 @@ const createFormScheme = (restrictedChannelNames = ['general']) =>
 export const CreateChannelModal: FC = () => {
   const router = useRouter()
   const {
-    isOpen,
+    isModalOpen,
     onCloseModal,
-    modalType,
-    data: { server, channelType: defaultType },
-  } = useModalStore()
+    modalData: { server, channelType: defaultType },
+  } = useModalStore(ModalType.CREATE_CHANNEL)
 
-  const isModalOpen = isOpen && modalType === ModalType.CREATE_CHANNEL
-
-  const formScheme = useMemo(() => createFormScheme(server?.channels?.map(({ name }) => name)) ?? [], [server])
+  const formScheme = useMemo(
+    () => createFormScheme(server?.channels?.map(({ name }) => name)) ?? [],
+    [server?.channels],
+  )
 
   type FormType = z.infer<typeof formScheme>
   const form = useForm<FormType>({

@@ -25,16 +25,13 @@ import { iconMaps, labelsMaps } from '@/lib/maps'
 
 export const MembersModal: FC = () => {
   const {
-    isOpen,
+    isModalOpen,
     onOpenModal,
     onCloseModal,
-    modalType,
-    data: { server },
-  } = useModalStore()
+    modalData: { server },
+  } = useModalStore(ModalType.MEMBERS)
   const [loadingIds, setLoadingIds] = useState<Record<string, boolean>>({})
   const router = useRouter()
-
-  const isModalOpen = isOpen && modalType === ModalType.MEMBERS
 
   const changeRole = async (memberId: string, role: MemberRole) => {
     try {
@@ -45,7 +42,7 @@ export const MembersModal: FC = () => {
       })
 
       router.refresh()
-      onOpenModal({ modalType: ModalType.MEMBERS, data: { server: newServer } })
+      onOpenModal(ModalType.MEMBERS, { server: newServer })
     } catch (error) {
       console.log(error)
     } finally {
@@ -61,7 +58,7 @@ export const MembersModal: FC = () => {
       })
 
       router.refresh()
-      onOpenModal({ modalType: ModalType.MEMBERS, data: { server: newServer } })
+      onOpenModal(ModalType.MEMBERS, { server: newServer })
     } catch (error) {
       console.log(error)
     } finally {

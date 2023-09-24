@@ -11,7 +11,7 @@ import { ListItemCategory, type ServerWithMembersWithProfilesWithChannels } from
 type ServerSectionProps = {
   label: string
   role?: MemberRole
-  server?: ServerWithMembersWithProfilesWithChannels
+  server: ServerWithMembersWithProfilesWithChannels
 } & (
   | {
       sectionType: ListItemCategory.CHANNELS
@@ -29,9 +29,7 @@ export const ServerSection: FC<ServerSectionProps> = ({ label, server, role, ...
       {role !== MemberRole.GUEST && rest.sectionType === ListItemCategory.CHANNELS && (
         <ActionTooltip label="Create Channel" side="top">
           <button
-            onClick={() =>
-              onOpenModal({ modalType: ModalType.CREATE_CHANNEL, data: { server, channelType: rest.channelType } })
-            }
+            onClick={() => onOpenModal(ModalType.CREATE_CHANNEL, { server, channelType: rest.channelType })}
             className="text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300 transition"
           >
             <Plus className="w-4 h-4" />
@@ -41,7 +39,7 @@ export const ServerSection: FC<ServerSectionProps> = ({ label, server, role, ...
       {role === MemberRole.ADMIN && rest.sectionType === ListItemCategory.MEMBERS && (
         <ActionTooltip label="Manage Members" side="top">
           <button
-            onClick={() => onOpenModal({ modalType: ModalType.MEMBERS, data: { server } })}
+            onClick={() => onOpenModal(ModalType.MEMBERS, { server })}
             className="text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300 transition"
           >
             <Settings className="w-4 h-4" />

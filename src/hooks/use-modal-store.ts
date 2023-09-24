@@ -1,7 +1,7 @@
-import { type ChannelType } from '@prisma/client'
+import { type Channel, type ChannelType } from '@prisma/client'
 import { createEvent, createStore } from 'effector'
 import { useStore } from 'effector-react'
-import { useMemo } from 'react'
+import { useCallback } from 'react'
 
 import { type ServerWithMembersWithProfilesWithChannels } from '@/types'
 
@@ -13,42 +13,43 @@ export enum ModalType {
   CREATE_CHANNEL,
   LEAVE_SERVER,
   DELETE_SERVER,
+  DELETE_CHANNEL,
+  EDIT_CHANNEL,
 }
 
-interface ModalData {
-  server?: ServerWithMembersWithProfilesWithChannels
+interface PossibleModalData {
+  server: ServerWithMembersWithProfilesWithChannels
+  channel: Channel
   channelType?: ChannelType
 }
 
-interface State {
-  modalType: ModalType | null
-  isOpen: boolean
-  data: ModalData
+type ModalDataMapper = {
+  [ModalType.CREATE_SERVER]: EmptyRecord
+  [ModalType.INVITE]: Pick<PossibleModalData, 'server'>
+  [ModalType.EDIT_SERVER]: Pick<PossibleModalData, 'server'>
+  [ModalType.MEMBERS]: Pick<PossibleModalData, 'server'>
+  [ModalType.CREATE_CHANNEL]: Pick<PossibleModalData, 'server' | 'channelType'>
+  [ModalType.LEAVE_SERVER]: Pick<PossibleModalData, 'server'>
+  [ModalType.DELETE_SERVER]: Pick<PossibleModalData, 'server'>
+  [ModalType.DELETE_CHANNEL]: Pick<PossibleModalData, 'server' | 'channel'>
+  [ModalType.EDIT_CHANNEL]: Pick<PossibleModalData, 'server' | 'channel'>
 }
 
-type ModalsWithoutData = Extract<ModalType, ModalType.CREATE_SERVER>
-type ServerModalData =
-  | {
-      modalType: Exclude<ModalType, ModalsWithoutData>
-      data: ModalData
-    }
-  | {
-      modalType: Extract<ModalType, ModalsWithoutData>
-    }
-
-type OnOpenModalData = ServerModalData
-
-interface Events {
-  onOpenModal: (data: OnOpenModalData) => void
-  onCloseModal: () => void
+type OnOpenModalData<T extends ModalType = ModalType> = {
+  modalType: T
+  modalData: ModalDataMapper[T]
 }
 
-interface ModalStore extends State, Events {}
+type State<T extends ModalType = ModalType> = {
+  isModalOpen: boolean
+  modalType: T | null
+  modalData: ModalDataMapper[T]
+}
 
 const store$ = createStore<State>({
-  isOpen: false,
+  isModalOpen: false,
   modalType: null,
-  data: {},
+  modalData: {},
 })
 
 const events = {
@@ -60,12 +61,28 @@ store$ //
   .on(events.onOpenModal, (state, data) => ({
     ...state,
     ...data,
-    isOpen: true,
+    isModalOpen: true,
   }))
   .reset(events.onCloseModal)
 
-export const useModalStore = (): ModalStore => {
-  const store = useStore(store$)
+export const useModalStore = <T extends ModalType = ModalType>(currentModalType?: T) => {
+  const { modalType, modalData, isModalOpen } = useStore(store$)
 
-  return useMemo(() => ({ ...store, ...events }), [store])
+  const onCloseModal = useCallback(() => events.onCloseModal(), [])
+  const onOpenModal = useCallback(
+    <CT extends ModalType>(type: CT, data: ModalDataMapper[CT] | EmptyRecord = {}) =>
+      events.onOpenModal({ modalType: type, modalData: data }),
+    [],
+  )
+
+  return {
+    // store
+    modalType,
+    isModalOpen: isModalOpen && modalType === currentModalType,
+    modalData: modalData as ModalDataMapper[T],
+
+    // actions
+    onCloseModal,
+    onOpenModal,
+  }
 }

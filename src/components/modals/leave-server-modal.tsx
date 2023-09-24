@@ -18,14 +18,11 @@ import { ModalType, useBoolean, useModalStore } from '@/hooks'
 export const LeaveServerModal: FC = () => {
   const router = useRouter()
   const {
-    isOpen,
+    isModalOpen,
     onCloseModal,
-    modalType,
-    data: { server },
-  } = useModalStore()
+    modalData: { server },
+  } = useModalStore(ModalType.LEAVE_SERVER)
   const [isLoading, setIsLoadingTrue, setIsLoadingFalse] = useBoolean()
-
-  const isModalOpen = isOpen && modalType === ModalType.LEAVE_SERVER
 
   const confirm = async () => {
     try {

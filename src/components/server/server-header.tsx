@@ -43,7 +43,7 @@ export const ServerHeader: FC<ServerHeaderProps> = ({ server, role }) => {
         title: 'Invite People',
         IconComponent: UserPlus,
         className: 'text-indigo-600 dark:text-indigo-400',
-        onClick: () => onOpenModal({ modalType: ModalType.INVITE, data: { server } }),
+        onClick: () => onOpenModal(ModalType.INVITE, { server }),
       })
 
     if (isAdmin)
@@ -51,12 +51,12 @@ export const ServerHeader: FC<ServerHeaderProps> = ({ server, role }) => {
         {
           title: 'Server Settings',
           IconComponent: Settings,
-          onClick: () => onOpenModal({ modalType: ModalType.EDIT_SERVER, data: { server } }),
+          onClick: () => onOpenModal(ModalType.EDIT_SERVER, { server }),
         },
         {
           title: 'Manage Members',
           IconComponent: UserCog,
-          onClick: () => onOpenModal({ modalType: ModalType.MEMBERS, data: { server } }),
+          onClick: () => onOpenModal(ModalType.MEMBERS, { server }),
         },
       )
 
@@ -65,7 +65,7 @@ export const ServerHeader: FC<ServerHeaderProps> = ({ server, role }) => {
         {
           title: 'Create Channel',
           IconComponent: PlusCircle,
-          onClick: () => onOpenModal({ modalType: ModalType.CREATE_CHANNEL, data: { server } }),
+          onClick: () => onOpenModal(ModalType.CREATE_CHANNEL, { server }),
         },
         'separator',
       )
@@ -76,13 +76,13 @@ export const ServerHeader: FC<ServerHeaderProps> = ({ server, role }) => {
             title: 'Delete Server',
             IconComponent: Trash,
             className: 'text-rose-500',
-            onClick: () => onOpenModal({ modalType: ModalType.DELETE_SERVER, data: { server } }),
+            onClick: () => onOpenModal(ModalType.DELETE_SERVER, { server }),
           }
         : {
             title: 'Leave Server',
             IconComponent: LogOut,
             className: 'text-rose-500',
-            onClick: () => onOpenModal({ modalType: ModalType.LEAVE_SERVER, data: { server } }),
+            onClick: () => onOpenModal(ModalType.LEAVE_SERVER, { server }),
           },
     )
 
