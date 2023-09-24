@@ -20,6 +20,11 @@ export interface ServerWithMembersWithProfilesWithChannels
   }> {}
 
 export enum ListItemCategory {
-  CHANNELS,
-  MEMBERS,
+  CHANNELS = 'CHANNELS',
+  MEMBERS = 'MEMBERS',
+}
+
+export enum ChatCategory {
+  CHANNELS = 'CHANNELS',
+  CONVERSATIONS = 'CONVERSATIONS',
 }
