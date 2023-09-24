@@ -1,10 +1,9 @@
 'use client'
 
-import { type MemberRole, type Server } from '@prisma/client'
+import { type Server } from '@prisma/client'
 import { useParams, useRouter } from 'next/navigation'
 import { type FC } from 'react'
 
-import { ActionTooltip } from '@/components/action-tooltip'
 import { UserAvatar } from '@/components/user-avatar'
 import { iconMaps } from '@/lib/maps'
 import { cn } from '@/lib/utils'
@@ -21,7 +20,7 @@ export const ServerMember: FC<ServerMemberProps> = ({ member, server }) => {
 
   const icon = iconMaps.roles[member.role]('flex-shrink-0 w-5 h-5 text-zinc-500 dark:text-zinc-400')
 
-  const isCurrentMember = params.channelId === member.id
+  const isCurrentMember = params.memberId === member.id
 
   const onClick = () => {
     router.push(`/servers/${server.id}/conversations/${member.id}`)

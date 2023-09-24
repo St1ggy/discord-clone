@@ -7,6 +7,7 @@ import { type FC, type MouseEvent } from 'react'
 
 import { ActionTooltip } from '@/components/action-tooltip'
 import { ModalType, useModalStore } from '@/hooks'
+import { GENERAL_CHANNEL } from '@/lib/constants'
 import { iconMaps } from '@/lib/maps'
 import { cn } from '@/lib/utils'
 import { type ServerWithMembersWithProfilesWithChannels } from '@/types'
@@ -57,7 +58,7 @@ export const ServerChannel: FC<ServerChannelProps> = ({ channel, server, role })
       >
         {channel.name}
       </p>
-      {channel.name !== 'general' && role !== MemberRole.GUEST && (
+      {channel.name !== GENERAL_CHANNEL && role !== MemberRole.GUEST && (
         <div className="ml-auto flex items-center gap-x-2">
           <ActionTooltip label="Edit">
             <Edit
@@ -73,7 +74,7 @@ export const ServerChannel: FC<ServerChannelProps> = ({ channel, server, role })
           </ActionTooltip>
         </div>
       )}
-      {channel.name === 'general' && <Lock className="ml-auto w-4 h-4 text-zinc-500 dark:text-zinc-400" />}
+      {channel.name === GENERAL_CHANNEL && <Lock className="ml-auto w-4 h-4 text-zinc-500 dark:text-zinc-400" />}
     </button>
   )
 }

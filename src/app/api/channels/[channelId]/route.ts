@@ -2,6 +2,7 @@ import { MemberRole } from '@prisma/client'
 import { NextResponse } from 'next/server'
 
 import { tryWithProfile } from '@/app/api/try-with-profile'
+import { GENERAL_CHANNEL } from '@/lib/constants'
 import { db } from '@/lib/db'
 
 export const DELETE = async (req: Request, { params: { channelId } }: { params: { channelId?: string } }) => {
@@ -24,12 +25,12 @@ export const DELETE = async (req: Request, { params: { channelId } }: { params: 
         },
         data: {
           channels: {
-            deleteMany: { id: channelId, name: { not: 'general' } },
+            deleteMany: { id: channelId, name: { not: GENERAL_CHANNEL } },
           },
         },
       })
     },
-    'channels/[channelId] [DELETE]',
+    'channels/[memberId] [DELETE]',
     { channelId },
   )
 }
@@ -57,7 +58,7 @@ export const PATCH = async (req: Request, { params: { channelId } }: { params: {
             update: {
               where: {
                 id: channelId,
-                name: { not: 'general' },
+                name: { not: GENERAL_CHANNEL },
               },
               data: { name, type: channelType },
             },
@@ -65,7 +66,7 @@ export const PATCH = async (req: Request, { params: { channelId } }: { params: {
         },
       })
     },
-    'channels/[channelId] [PATCH]',
+    'channels/[memberId] [PATCH]',
     { channelId },
   )
 }

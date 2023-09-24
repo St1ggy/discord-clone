@@ -14,8 +14,9 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { ModalType, useModalStore } from '@/hooks'
+import { GENERAL_CHANNEL } from '@/lib/constants'
 
-const createFormScheme = (restrictedChannelNames = ['general']) =>
+const createFormScheme = (restrictedChannelNames = [GENERAL_CHANNEL]) =>
   z.object({
     name: z
       .string()

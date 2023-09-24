@@ -1,6 +1,7 @@
 import { MemberRole } from '@prisma/client'
 import { v4 as uuidv4 } from 'uuid'
 
+import { GENERAL_CHANNEL } from '@/lib/constants'
 import { db } from '@/lib/db'
 
 import { tryWithProfile } from '../try-with-profile'
@@ -18,7 +19,7 @@ export const POST = async (req: Request) =>
         channels: {
           create: [
             {
-              name: 'general',
+              name: GENERAL_CHANNEL,
               profileId: profile.id,
             },
           ],
