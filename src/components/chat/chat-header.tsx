@@ -2,6 +2,7 @@ import { Hash } from 'lucide-react'
 import { type FC, useMemo } from 'react'
 
 import { MobileToggle } from '@/components/mobile-toggle'
+import { SocketIndicator } from '@/components/socket-indicator'
 import { UserAvatar } from '@/components/user-avatar'
 import { ChatCategory } from '@/types'
 
@@ -34,6 +35,10 @@ export const ChatHeader: FC<ChatHeaderProps> = ({ serverId, name, ...rest }) => 
 
       {image}
       <p className="font-semibold text-md text-black dark:text-white">{name}</p>
+
+      <div className="ml-auto flex items-center">
+        <SocketIndicator />
+      </div>
     </div>
   )
 }
