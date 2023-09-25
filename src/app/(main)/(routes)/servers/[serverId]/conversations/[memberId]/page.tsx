@@ -5,7 +5,7 @@ import { ChatHeader } from '@/components/chat'
 import { getOrCreateConversation } from '@/lib/conversation-utils'
 import { db } from '@/lib/db'
 import { getCurrentProfile } from '@/lib/get-current-profile'
-import { ChatCategory } from '@/types'
+import { ChatType } from '@/types'
 
 const MemberIdPage: NextPage<{ serverId: string; memberId: string }> = async ({ params: { serverId, memberId } }) => {
   const profile = await getCurrentProfile()
@@ -32,7 +32,7 @@ const MemberIdPage: NextPage<{ serverId: string; memberId: string }> = async ({ 
   return (
     <div className="bg-white dark:bg-[#313338] flex flex-col h-full">
       <ChatHeader
-        chatType={ChatCategory.CONVERSATIONS}
+        chatType={ChatType.CONVERSATION}
         name={otherMember.profile.name}
         imageUrl={otherMember.profile.imageUrl}
         serverId={serverId}

@@ -18,7 +18,7 @@ export const NavigationItem: FC<NavigationItemProps> = ({ id, className, name, i
   const params = useParams<{ serverId: string }>()
   const router = useRouter()
 
-  const isActiveServer = params.serverId === id
+  const isActiveServer = params?.serverId === id
 
   const onClick = () => router.push(`/servers/${id}`)
 

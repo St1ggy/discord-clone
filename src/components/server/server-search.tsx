@@ -14,7 +14,7 @@ import {
   CommandList,
 } from '@/components/ui/command'
 import { useBoolean } from '@/hooks'
-import { ListItemCategory } from '@/types'
+import { ListItemType } from '@/types'
 
 export interface SearchItemData {
   id: string
@@ -24,7 +24,7 @@ export interface SearchItemData {
 
 export interface SearchItem {
   label: string
-  itemType: ListItemCategory
+  itemType: ListItemType
   data: SearchItemData[]
 }
 
@@ -46,10 +46,10 @@ export const ServerSearch: FC<ServerSearchProps> = ({ data }) => {
     setIsCommandOpenFalse()
 
     switch (itemType) {
-      case ListItemCategory.CHANNELS:
-        return router.push(`/servers/${params.serverId}/channels/${id}`)
-      case ListItemCategory.MEMBERS:
-        return router.push(`/servers/${params.serverId}/conversations/${id}`)
+      case ListItemType.CHANNEL:
+        return router.push(`/servers/${params?.serverId}/channels/${id}`)
+      case ListItemType.MEMBER:
+        return router.push(`/servers/${params?.serverId}/conversations/${id}`)
     }
   }
 

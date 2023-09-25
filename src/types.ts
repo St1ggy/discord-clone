@@ -22,14 +22,14 @@ export interface ServerWithMembersWithProfilesWithChannels
     }
   }> {}
 
-export enum ListItemCategory {
-  CHANNELS = 'CHANNELS',
-  MEMBERS = 'MEMBERS',
+export enum ListItemType {
+  CHANNEL = 'CHANNEL',
+  MEMBER = 'MEMBER',
 }
 
-export enum ChatCategory {
-  CHANNELS = 'CHANNELS',
-  CONVERSATIONS = 'CONVERSATIONS',
+export enum ChatType {
+  CHANNEL = 'CHANNEL',
+  CONVERSATION = 'CONVERSATION',
 }
 
 export type NextApiResponseServerIo = NextApiResponse & {

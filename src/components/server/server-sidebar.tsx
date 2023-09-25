@@ -6,7 +6,7 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import { Separator } from '@/components/ui/separator'
 import { db } from '@/lib/db'
 import { getCurrentProfile } from '@/lib/get-current-profile'
-import { ListItemCategory } from '@/types'
+import { ListItemType } from '@/types'
 
 import { ServerChannel } from './server-channel'
 import { ServerHeader } from './server-header'
@@ -52,7 +52,7 @@ export const ServerSidebar: FC<ServerSidebarProps> = async ({ serverId }) => {
         {!!channelsByType[ChannelType.TEXT]?.length && (
           <div className="mb-2">
             <ServerSection
-              sectionType={ListItemCategory.CHANNELS}
+              sectionType={ListItemType.CHANNEL}
               channelType={ChannelType.TEXT}
               role={role}
               label="Text Channels"
@@ -68,7 +68,7 @@ export const ServerSidebar: FC<ServerSidebarProps> = async ({ serverId }) => {
         {!!channelsByType[ChannelType.AUDIO]?.length && (
           <div className="mb-2">
             <ServerSection
-              sectionType={ListItemCategory.CHANNELS}
+              sectionType={ListItemType.CHANNEL}
               channelType={ChannelType.AUDIO}
               role={role}
               label="Voice Channels"
@@ -84,7 +84,7 @@ export const ServerSidebar: FC<ServerSidebarProps> = async ({ serverId }) => {
         {!!channelsByType[ChannelType.VIDEO]?.length && (
           <div className="mb-2">
             <ServerSection
-              sectionType={ListItemCategory.CHANNELS}
+              sectionType={ListItemType.CHANNEL}
               channelType={ChannelType.VIDEO}
               role={role}
               label="Video Channels"
@@ -99,7 +99,7 @@ export const ServerSidebar: FC<ServerSidebarProps> = async ({ serverId }) => {
         )}
         {!!otherMembers.length && (
           <div className="mb-2">
-            <ServerSection sectionType={ListItemCategory.MEMBERS} role={role} label="Members" server={server} />
+            <ServerSection sectionType={ListItemType.MEMBER} role={role} label="Members" server={server} />
             <div className="space-y-[2px]">
               {otherMembers.map((member) => (
                 <ServerMember key={member.id} member={member} server={server} />

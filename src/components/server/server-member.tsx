@@ -20,7 +20,7 @@ export const ServerMember: FC<ServerMemberProps> = ({ member, server }) => {
 
   const icon = iconMaps.roles[member.role]('flex-shrink-0 w-5 h-5 text-zinc-500 dark:text-zinc-400')
 
-  const isCurrentMember = params.memberId === member.id
+  const isCurrentMember = params?.memberId === member.id
 
   const onClick = () => {
     router.push(`/servers/${server.id}/conversations/${member.id}`)

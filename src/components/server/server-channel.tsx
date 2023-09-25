@@ -25,7 +25,7 @@ export const ServerChannel: FC<ServerChannelProps> = ({ channel, server, role })
 
   const icon = iconMaps.channels[channel.type]('flex-shrink-0 w-5 h-5 text-zinc-500 dark:text-zinc-400')
 
-  const isCurrentChannel = params.channelId === channel.id
+  const isCurrentChannel = params?.channelId === channel.id
 
   const handleClick = () => {
     router.push(`/servers/${server.id}/channels/${channel.id}`)

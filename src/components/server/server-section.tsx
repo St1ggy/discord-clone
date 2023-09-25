@@ -6,7 +6,7 @@ import { type FC } from 'react'
 
 import { ActionTooltip } from '@/components/action-tooltip'
 import { ModalType, useModalStore } from '@/hooks'
-import { ListItemCategory, type ServerWithMembersWithProfilesWithChannels } from '@/types'
+import { ListItemType, type ServerWithMembersWithProfilesWithChannels } from '@/types'
 
 type ServerSectionProps = {
   label: string
@@ -14,10 +14,10 @@ type ServerSectionProps = {
   server: ServerWithMembersWithProfilesWithChannels
 } & (
   | {
-      sectionType: ListItemCategory.CHANNELS
+      sectionType: ListItemType.CHANNEL
       channelType?: ChannelType
     }
-  | { sectionType: ListItemCategory.MEMBERS }
+  | { sectionType: ListItemType.MEMBER }
 )
 
 export const ServerSection: FC<ServerSectionProps> = ({ label, server, role, ...rest }) => {
@@ -26,7 +26,7 @@ export const ServerSection: FC<ServerSectionProps> = ({ label, server, role, ...
   return (
     <div className="flex items-center justify-between py-2">
       <p className="text-xs uppercase font-semibold text-zinc-500 dark:text-zinc-400">{label}</p>
-      {role !== MemberRole.GUEST && rest.sectionType === ListItemCategory.CHANNELS && (
+      {role !== MemberRole.GUEST && rest.sectionType === ListItemType.CHANNEL && (
         <ActionTooltip label="Create Channel" side="top">
           <button
             onClick={() => onOpenModal(ModalType.CREATE_CHANNEL, { server, channelType: rest.channelType })}
@@ -36,7 +36,7 @@ export const ServerSection: FC<ServerSectionProps> = ({ label, server, role, ...
           </button>
         </ActionTooltip>
       )}
-      {role === MemberRole.ADMIN && rest.sectionType === ListItemCategory.MEMBERS && (
+      {role === MemberRole.ADMIN && rest.sectionType === ListItemType.MEMBER && (
         <ActionTooltip label="Manage Members" side="top">
           <button
             onClick={() => onOpenModal(ModalType.MEMBERS, { server })}

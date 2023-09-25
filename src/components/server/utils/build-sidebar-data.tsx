@@ -1,7 +1,7 @@
 import { type Channel, ChannelType, type MemberRole, type Profile } from '@prisma/client'
 
 import { iconMaps, labelsMaps } from '@/lib/maps'
-import { ListItemCategory, type MemberWithProfile, type ServerWithMembersWithProfilesWithChannels } from '@/types'
+import { ListItemType, type MemberWithProfile, type ServerWithMembersWithProfilesWithChannels } from '@/types'
 
 import { type SearchItem } from '../server-search'
 
@@ -34,7 +34,7 @@ export const buildSidebarData = (profile: Profile, server: ServerWithMembersWith
 
   const data: SearchItem[] = channelTypes.map((channelType) => ({
     label: labelsMaps.channels[channelType],
-    itemType: ListItemCategory.CHANNELS,
+    itemType: ListItemType.CHANNEL,
     data: channelsByType[channelType]?.map((channel) => ({
       id: channel.id,
       icon: iconMaps.channels[channel.type]('mr-2'),
@@ -45,7 +45,7 @@ export const buildSidebarData = (profile: Profile, server: ServerWithMembersWith
   if (otherMembers.length)
     data.push({
       label: 'Members',
-      itemType: ListItemCategory.MEMBERS,
+      itemType: ListItemType.MEMBER,
       data: otherMembers.map((member) => ({
         id: member.id,
         icon: iconMaps.roles[member.role](),

@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation'
 import { ChatHeader } from '@/components/chat'
 import { db } from '@/lib/db'
 import { getCurrentProfile } from '@/lib/get-current-profile'
-import { ChatCategory } from '@/types'
+import { ChatType } from '@/types'
 
 const ChannelIdPage: NextPage<{ serverId: string; channelId: string }> = async ({
   params: { serverId, channelId },
@@ -24,7 +24,7 @@ const ChannelIdPage: NextPage<{ serverId: string; channelId: string }> = async (
 
   return (
     <div className="bg-white dark:bg-[#313338] flex flex-col h-full">
-      <ChatHeader chatType={ChatCategory.CHANNELS} name={channel.name} serverId={serverId} />
+      <ChatHeader chatType={ChatType.CHANNEL} name={channel.name} serverId={serverId} />
     </div>
   )
 }

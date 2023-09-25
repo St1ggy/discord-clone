@@ -4,27 +4,27 @@ import { type FC, useMemo } from 'react'
 import { MobileToggle } from '@/components/mobile-toggle'
 import { SocketIndicator } from '@/components/socket-indicator'
 import { UserAvatar } from '@/components/user-avatar'
-import { ChatCategory } from '@/types'
+import { ChatType } from '@/types'
 
 type ChatHeaderProps = {
   serverId: string
   name: string
 } & (
   | {
-      chatType: ChatCategory.CONVERSATIONS
+      chatType: ChatType.CONVERSATION
       imageUrl?: string
     }
   | {
-      chatType: ChatCategory.CHANNELS
+      chatType: ChatType.CHANNEL
     }
 )
 
 export const ChatHeader: FC<ChatHeaderProps> = ({ serverId, name, ...rest }) => {
   const image = useMemo(() => {
     switch (rest.chatType) {
-      case ChatCategory.CHANNELS:
+      case ChatType.CHANNEL:
         return <Hash className="w-5 h-5 text-zinc-500 dark:text-zinc-400 mr-2" />
-      case ChatCategory.CONVERSATIONS:
+      case ChatType.CONVERSATION:
         return <UserAvatar src={rest.imageUrl} className="h-8 w-8 md:h-8 md:w-8 mr-2" />
     }
   }, [rest])
