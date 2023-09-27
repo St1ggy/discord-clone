@@ -10,7 +10,7 @@ export const NavigationAction: FC = () => {
   const { onOpenModal } = useModalStore()
 
   const handleClick = () => {
-    onOpenModal(ModalType.CREATE_SERVER, {})
+    onOpenModal(ModalType.CREATE_SERVER, void 0)
   }
 
   return (

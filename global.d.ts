@@ -6,5 +6,5 @@ declare global {
 
   type EmptyRecord = Record<string, never>
 
-  type PickOptional<O, Keys extends keyof O = keyof O> = Partial<Pick<O, Keys>>
+  type PickOptional<O, Keys extends keyof O> = Partial<Pick<O, Keys>>
 }

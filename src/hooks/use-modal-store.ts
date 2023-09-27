@@ -17,22 +17,33 @@ export enum ModalType {
   EDIT_CHANNEL = 'EDIT_CHANNEL',
 }
 
+type RequiredFields<K extends keyof PossibleModalData> = Pick<PossibleModalData, K>
+type OptionalFields<K extends keyof PossibleModalData | never> = PickOptional<PossibleModalData, K>
+type DataFields<
+  K extends keyof PossibleModalData,
+  OK extends keyof PossibleModalData | never = never,
+> = RequiredFields<K> & OptionalFields<OK>
+
 interface PossibleModalData {
   server: ServerWithMembersWithProfilesWithChannels
   channel: Channel
   channelType: ChannelType
+  apiUrl: string
+  query: Record<string, unknown>
 }
+
+type TypedData = Exclude<ModalType, ModalType.CREATE_SERVER>
 
 type ModalDataMapper = {
   [ModalType.CREATE_SERVER]: EmptyRecord
-  [ModalType.INVITE]: Pick<PossibleModalData, 'server'>
-  [ModalType.EDIT_SERVER]: Pick<PossibleModalData, 'server'>
-  [ModalType.MEMBERS]: Pick<PossibleModalData, 'server'>
-  [ModalType.CREATE_CHANNEL]: Pick<PossibleModalData, 'server'> & PickOptional<PossibleModalData, 'channelType'>
-  [ModalType.LEAVE_SERVER]: Pick<PossibleModalData, 'server'>
-  [ModalType.DELETE_SERVER]: Pick<PossibleModalData, 'server'>
-  [ModalType.DELETE_CHANNEL]: Pick<PossibleModalData, 'server' | 'channel'>
-  [ModalType.EDIT_CHANNEL]: Pick<PossibleModalData, 'server' | 'channel'>
+  [ModalType.INVITE]: DataFields<'server'>
+  [ModalType.EDIT_SERVER]: DataFields<'server'>
+  [ModalType.MEMBERS]: DataFields<'server'>
+  [ModalType.CREATE_CHANNEL]: DataFields<'server', 'channelType'>
+  [ModalType.LEAVE_SERVER]: DataFields<'server'>
+  [ModalType.DELETE_SERVER]: DataFields<'server'>
+  [ModalType.DELETE_CHANNEL]: DataFields<'server' | 'channel'>
+  [ModalType.EDIT_CHANNEL]: DataFields<'server' | 'channel'>
 }
 
 type OnOpenModalData<T extends ModalType = ModalType> = {
@@ -70,8 +81,8 @@ export const useModalStore = <T extends ModalType = ModalType>(currentModalType?
 
   const onCloseModal = useCallback(() => events.onCloseModal(), [])
   const onOpenModal = useCallback(
-    <CT extends ModalType>(type: CT, data: ModalDataMapper[CT] | EmptyRecord = {}) =>
-      events.onOpenModal({ modalType: type, modalData: data }),
+    <CT extends ModalType>(type: CT, data: CT extends TypedData ? ModalDataMapper[CT] : void) =>
+      events.onOpenModal({ modalType: type, modalData: data || {} }),
     [],
   )
 
