@@ -15,6 +15,7 @@ export enum ModalType {
   DELETE_SERVER = 'DELETE_SERVER',
   DELETE_CHANNEL = 'DELETE_CHANNEL',
   EDIT_CHANNEL = 'EDIT_CHANNEL',
+  MESSAGE_FILE = 'MESSAGE_FILE',
 }
 
 type RequiredFields<K extends keyof PossibleModalData> = Pick<PossibleModalData, K>
@@ -44,6 +45,7 @@ type ModalDataMapper = {
   [ModalType.DELETE_SERVER]: DataFields<'server'>
   [ModalType.DELETE_CHANNEL]: DataFields<'server' | 'channel'>
   [ModalType.EDIT_CHANNEL]: DataFields<'server' | 'channel'>
+  [ModalType.MESSAGE_FILE]: DataFields<'apiUrl' | 'query'>
 }
 
 type OnOpenModalData<T extends ModalType = ModalType> = {

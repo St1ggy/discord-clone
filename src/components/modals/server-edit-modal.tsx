@@ -19,6 +19,7 @@ import {
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { ModalType, useModalStore } from '@/hooks'
+import { FileUploadType } from '@/types'
 
 import { FileUpload } from '../file-upload'
 
@@ -93,7 +94,11 @@ export const ServerEditModal: FC = () => {
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
-                        <FileUpload endpoint="serverImage" value={field.value} onChange={field.onChange} />
+                        <FileUpload
+                          endpoint={FileUploadType.SERVER_IMAGE}
+                          value={field.value}
+                          onChange={field.onChange}
+                        />
                       </FormControl>
                     </FormItem>
                   )}

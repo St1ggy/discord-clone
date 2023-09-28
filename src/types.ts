@@ -39,3 +39,8 @@ export type NextApiResponseServerIo = NextApiResponse & {
     }
   }
 }
+
+export enum FileUploadType {
+  SERVER_IMAGE = 'serverImage',
+  MESSAGE_FILE = 'messageFile',
+}
