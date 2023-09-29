@@ -1,13 +1,27 @@
 'use client'
 
-import { type Member, type Message } from '@prisma/client'
-import { Loader2, ServerCrash } from 'lucide-react'
+import { type Member } from '@prisma/client'
+import { Loader2, type LucideProps, ServerCrash } from 'lucide-react'
 import { type FC, Fragment } from 'react'
 
 import { useChatQuery } from '@/hooks/use-chat-query'
+import { cn } from '@/lib/utils'
 import { type ChatType, type MessageParamKey, type MessageWithMemberWithProfile } from '@/types'
 
 import { ChatWelcome } from './chat-welcome'
+
+interface ChatMessagesStatusProps {
+  animate?: boolean
+  text: string
+  Icon: FC<LucideProps>
+}
+
+const ChatMessagesStatus: FC<ChatMessagesStatusProps> = ({ animate, text, Icon }) => (
+  <div className="flex flex-col flex-1 justify-center items-center">
+    <Icon className={cn('h-7 w-7 text-zinc-500 my-4', { 'animate-spin': animate })} />
+    <p className="text-xs text-zinc-500 dark:text-zinc-400">{text}</p>
+  </div>
+)
 
 interface ChatMessagesProps {
   name: string
@@ -43,21 +57,8 @@ export const ChatMessages: FC<ChatMessagesProps> = ({
     apiUrl,
   })
 
-  if (status === 'loading')
-    return (
-      <div className="flex flex-col flex-1 justify-center items-center">
-        <Loader2 className="h-7 w-7 text-zinc-500 animate-spin my-4" />
-        <p className="text-xs text-zinc-500 dark:text-zinc-400">Loading messages...</p>
-      </div>
-    )
-
-  if (status === 'error')
-    return (
-      <div className="flex flex-col flex-1 justify-center items-center">
-        <ServerCrash className="h-7 w-7 text-zinc-500 my-4" />
-        <p className="text-xs text-zinc-500 dark:text-zinc-400">Something went wrong...</p>
-      </div>
-    )
+  if (status === 'loading') return <ChatMessagesStatus Icon={Loader2} text="Loading messages..." animate />
+  if (status === 'error') return <ChatMessagesStatus Icon={ServerCrash} text="Something went wrong..." />
 
   return (
     <div className="flex-1 flex flex-col py-4 overflow-y-auto">
