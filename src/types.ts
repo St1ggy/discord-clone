@@ -22,6 +22,15 @@ export interface ServerWithMembersWithProfilesWithChannels
     }
   }> {}
 
+export interface MessageWithMemberWithProfile
+  extends Prisma.MessageGetPayload<{
+    include: {
+      member: {
+        include: { profile: true }
+      }
+    }
+  }> {}
+
 export enum ListItemType {
   CHANNEL = 'CHANNEL',
   MEMBER = 'MEMBER',
@@ -43,4 +52,9 @@ export type NextApiResponseServerIo = NextApiResponse & {
 export enum FileUploadType {
   SERVER_IMAGE = 'serverImage',
   MESSAGE_FILE = 'messageFile',
+}
+
+export enum MessageParamKey {
+  CHANNEL_ID = 'channelId',
+  CONVERSATION_ID = 'conversationId',
 }

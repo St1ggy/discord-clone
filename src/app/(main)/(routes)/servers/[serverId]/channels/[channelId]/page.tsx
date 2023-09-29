@@ -1,10 +1,10 @@
 import { redirectToSignIn } from '@clerk/nextjs'
 import { redirect } from 'next/navigation'
 
-import { ChatHeader, ChatInput } from '@/components/chat'
+import { ChatHeader, ChatInput, ChatMessages } from '@/components/chat'
 import { db } from '@/lib/db'
 import { getCurrentProfile } from '@/lib/get-current-profile'
-import { ChatType } from '@/types'
+import { ChatType, MessageParamKey } from '@/types'
 
 const ChannelIdPage: NextPage<{ serverId: string; channelId: string }> = async ({
   params: { serverId, channelId },
@@ -25,7 +25,17 @@ const ChannelIdPage: NextPage<{ serverId: string; channelId: string }> = async (
   return (
     <div className="bg-white dark:bg-[#313338] flex flex-col h-full">
       <ChatHeader chatType={ChatType.CHANNEL} name={channel.name} serverId={serverId} />
-      <div className="flex-1">123</div>
+      <ChatMessages
+        chatType={ChatType.CHANNEL}
+        name={channel.name}
+        chatId={channelId}
+        apiUrl="/api/messages"
+        socketUrl="/api/socket/messages"
+        member={member}
+        paramKey={MessageParamKey.CHANNEL_ID}
+        paramValue={channelId}
+        socketQuery={{ channelId, serverId }}
+      />
       <ChatInput
         name={channel.name}
         chatType={ChatType.CHANNEL}

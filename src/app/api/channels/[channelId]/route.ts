@@ -11,7 +11,7 @@ export const DELETE = async (req: Request, { params: { channelId } }: { params: 
   return tryWithProfile(
     async (profile) => {
       if (!serverId) return new NextResponse('Server ID Missing', { status: 400 })
-      if (!channelId) return new NextResponse('Server ID Missing', { status: 400 })
+      if (!channelId) return new NextResponse('Channel ID Missing', { status: 400 })
 
       return db.server.update({
         where: {
@@ -41,7 +41,7 @@ export const PATCH = async (req: Request, { params: { channelId } }: { params: {
   return tryWithProfile(
     async (profile) => {
       if (!serverId) return new NextResponse('Server ID Missing', { status: 400 })
-      if (!channelId) return new NextResponse('Server ID Missing', { status: 400 })
+      if (!channelId) return new NextResponse('Channel ID Missing', { status: 400 })
 
       return db.server.update({
         where: {

@@ -1,11 +1,11 @@
 import { redirectToSignIn } from '@clerk/nextjs'
 import { redirect } from 'next/navigation'
 
-import { ChatHeader } from '@/components/chat'
+import { ChatHeader, ChatInput, ChatMessages } from '@/components/chat'
 import { getOrCreateConversation } from '@/lib/conversation-utils'
 import { db } from '@/lib/db'
 import { getCurrentProfile } from '@/lib/get-current-profile'
-import { ChatType } from '@/types'
+import { ChatType, MessageParamKey } from '@/types'
 
 const MemberIdPage: NextPage<{ serverId: string; memberId: string }> = async ({ params: { serverId, memberId } }) => {
   const profile = await getCurrentProfile()
@@ -36,6 +36,23 @@ const MemberIdPage: NextPage<{ serverId: string; memberId: string }> = async ({ 
         name={otherMember.profile.name}
         imageUrl={otherMember.profile.imageUrl}
         serverId={serverId}
+      />
+      <ChatMessages
+        chatType={ChatType.CONVERSATION}
+        name={otherMember.profile.name}
+        chatId={otherMember.id}
+        apiUrl="/api/messages"
+        socketUrl="/api/socket/messages"
+        member={currentMember}
+        paramKey={MessageParamKey.CONVERSATION_ID}
+        paramValue={otherMember.id}
+        socketQuery={{ memberId: otherMember.id, serverId }}
+      />
+      <ChatInput
+        name={otherMember.profile.name}
+        chatType={ChatType.CONVERSATION}
+        apiUrl="/api/socket/messages"
+        query={{ memberId: otherMember.id, serverId }}
       />
     </div>
   )
