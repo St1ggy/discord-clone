@@ -5,7 +5,7 @@ import { Plus, Settings } from 'lucide-react'
 import { type FC } from 'react'
 
 import { ActionTooltip } from '@/components/action-tooltip'
-import { ModalType, useModalStore } from '@/hooks'
+import { ModalType, useModalStore } from '@/hooks/use-modal-store'
 import { ListItemType, type ServerWithMembersWithProfilesWithChannels } from '@/types'
 
 type ServerSectionProps = {

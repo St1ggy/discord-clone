@@ -8,7 +8,10 @@ import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { ModalType, useBoolean, useCopy, useModalStore, useOrigin } from '@/hooks'
+import { useBoolean } from '@/hooks/use-boolean'
+import { useCopy } from '@/hooks/use-copy'
+import { ModalType, useModalStore } from '@/hooks/use-modal-store'
+import { useOrigin } from '@/hooks/use-origin'
 import { cn } from '@/lib/utils'
 
 export const InviteModal: FC = () => {

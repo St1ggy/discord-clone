@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react'
 
-import { useBoolean } from '@/hooks'
+import { useBoolean } from './use-boolean'
 
 export const useCopy = (value: string, timeout = 1000) => {
   const [isCopied, setCopiedTrue, setIsCopiedFalse] = useBoolean()

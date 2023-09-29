@@ -14,7 +14,7 @@ import {
   ServerEditModal,
   ServerLeaveModal,
 } from '@/components/modals'
-import { useBoolean } from '@/hooks'
+import { useBoolean } from '@/hooks/use-boolean'
 
 export const ModalProvider: FC = () => {
   const [isMounted, setIsMountedTrue] = useBoolean()

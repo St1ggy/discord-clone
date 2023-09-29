@@ -13,7 +13,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
-import { ModalType, useBoolean, useModalStore } from '@/hooks'
+import { useBoolean } from '@/hooks/use-boolean'
+import { ModalType, useModalStore } from '@/hooks/use-modal-store'
 
 export const ChannelDeleteModal: FC = () => {
   const router = useRouter()

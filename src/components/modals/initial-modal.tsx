@@ -18,7 +18,7 @@ import {
 } from '@/components/ui/dialog'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { useBoolean } from '@/hooks'
+import { useBoolean } from '@/hooks/use-boolean'
 import { FileUploadType } from '@/types'
 
 import { FileUpload } from '../file-upload'

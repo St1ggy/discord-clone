@@ -17,7 +17,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form'
-import { ModalType, useModalStore } from '@/hooks'
+import { ModalType, useModalStore } from '@/hooks/use-modal-store'
 import { FileUploadType } from '@/types'
 
 import { FileUpload } from '../file-upload'

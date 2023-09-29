@@ -6,7 +6,7 @@ import { useParams, useRouter } from 'next/navigation'
 import { type FC, type MouseEvent } from 'react'
 
 import { ActionTooltip } from '@/components/action-tooltip'
-import { ModalType, useModalStore } from '@/hooks'
+import { ModalType, useModalStore } from '@/hooks/use-modal-store'
 import { GENERAL_CHANNEL } from '@/lib/constants'
 import { iconMaps } from '@/lib/maps'
 import { cn } from '@/lib/utils'

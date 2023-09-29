@@ -13,7 +13,7 @@ import {
   CommandItem,
   CommandList,
 } from '@/components/ui/command'
-import { useBoolean } from '@/hooks'
+import { useBoolean } from '@/hooks/use-boolean'
 import { ListItemType } from '@/types'
 
 export interface SearchItemData {

@@ -4,7 +4,7 @@ import { Plus } from 'lucide-react'
 import { type FC } from 'react'
 
 import { ActionTooltip } from '@/components/action-tooltip'
-import { ModalType, useModalStore } from '@/hooks'
+import { ModalType, useModalStore } from '@/hooks/use-modal-store'
 
 export const NavigationAction: FC = () => {
   const { onOpenModal } = useModalStore()

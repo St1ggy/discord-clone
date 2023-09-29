@@ -11,7 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { ModalType, useModalStore } from '@/hooks'
+import { ModalType, useModalStore } from '@/hooks/use-modal-store'
 import { cn } from '@/lib/utils'
 import { type ServerWithMembersWithProfilesWithChannels } from '@/types'
 

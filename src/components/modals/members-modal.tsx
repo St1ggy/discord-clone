@@ -20,7 +20,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { UserAvatar } from '@/components/user-avatar'
-import { ModalType, useModalStore } from '@/hooks'
+import { ModalType, useModalStore } from '@/hooks/use-modal-store'
 import { iconMaps, labelsMaps } from '@/lib/maps'
 
 export const MembersModal: FC = () => {

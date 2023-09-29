@@ -1,16 +1,17 @@
 'use client'
 
-import { type FC, type PropsWithChildren, createContext, useContext, useEffect, useState } from 'react'
+import { type FC, type PropsWithChildren, createContext, useEffect, useState } from 'react'
+import { useContext } from 'react'
 import { type Socket, io } from 'socket.io-client'
 
-import { useBoolean } from '@/hooks'
+import { useBoolean } from '@/hooks/use-boolean'
 
 interface SocketContextType {
   socket: any | null
   isConnected: boolean
 }
 
-const SocketContext = createContext<SocketContextType>({
+export const SocketContext = createContext<SocketContextType>({
   socket: null,
   isConnected: false,
 })

@@ -3,7 +3,7 @@
 import { type FC } from 'react'
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
-import { ModalType, useModalStore } from '@/hooks'
+import { ModalType, useModalStore } from '@/hooks/use-modal-store'
 
 export const ModalTemplate: FC = () => {
   const { isModalOpen, onCloseModal } = useModalStore(ModalType.INVITE)

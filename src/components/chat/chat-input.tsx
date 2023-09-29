@@ -11,7 +11,7 @@ import * as z from 'zod'
 import { EmojiPicker } from '@/components/emoji-picker'
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { ModalType, useModalStore } from '@/hooks'
+import { ModalType, useModalStore } from '@/hooks/use-modal-store'
 import { ChatType } from '@/types'
 
 interface ChatInputProps {
