@@ -37,6 +37,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "cmdk": "^0.2.0",
+    "date-fns": "^2.30.0",
     "effector": "^22.8.6",
     "effector-react": "^22.5.4",
     "emoji-mart": "^5.5.2",
@@ -73,6 +74,7 @@
     "zustand": "^4.4.1"
   },
   "devDependencies": {
+    "@types/date-fns": "^2.6.0",
     "@types/uuid": "^9.0.4",
     "prisma": "^5.3.1"
   }
