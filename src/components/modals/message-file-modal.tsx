@@ -22,13 +22,13 @@ import { FileUploadType } from '@/types'
 
 import { FileUpload } from '../file-upload'
 
-const formScheme = z.object({
+const formSchema = z.object({
   fileUrl: z.string().min(1, {
     message: 'Attachment is a required',
   }),
 })
 
-type FormType = z.infer<typeof formScheme>
+type FormType = z.infer<typeof formSchema>
 
 export const MessageFileModal: FC = () => {
   const router = useRouter()
@@ -39,7 +39,7 @@ export const MessageFileModal: FC = () => {
   } = useModalStore(ModalType.MESSAGE_FILE)
 
   const form = useForm<FormType>({
-    resolver: zodResolver(formScheme),
+    resolver: zodResolver(formSchema),
     defaultValues: {
       fileUrl: '',
     },

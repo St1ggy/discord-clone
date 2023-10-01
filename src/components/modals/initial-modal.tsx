@@ -23,7 +23,7 @@ import { FileUploadType } from '@/types'
 
 import { FileUpload } from '../file-upload'
 
-const formScheme = z.object({
+const formSchema = z.object({
   name: z.string().min(1, {
     message: 'Server name is a required',
   }),
@@ -32,7 +32,7 @@ const formScheme = z.object({
   }),
 })
 
-type FormType = z.infer<typeof formScheme>
+type FormType = z.infer<typeof formSchema>
 
 export const InitialModal: FC = () => {
   const [isMounted, setIsMountedTrue] = useBoolean()
@@ -43,7 +43,7 @@ export const InitialModal: FC = () => {
   }, [setIsMountedTrue])
 
   const form = useForm<FormType>({
-    resolver: zodResolver(formScheme),
+    resolver: zodResolver(formSchema),
     defaultValues: {
       name: '',
       imageUrl: '',

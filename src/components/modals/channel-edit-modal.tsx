@@ -40,7 +40,7 @@ export const ChannelEditModal: FC = () => {
     modalData: { server, channel },
   } = useModalStore(ModalType.EDIT_CHANNEL)
 
-  const formScheme = useMemo(
+  const formSchema = useMemo(
     () =>
       createFormScheme(
         server?.channels?.reduce<string[]>((acc, { name }) => {
@@ -54,9 +54,9 @@ export const ChannelEditModal: FC = () => {
     [channel?.name, server?.channels],
   )
 
-  type FormType = z.infer<typeof formScheme>
+  type FormType = z.infer<typeof formSchema>
   const form = useForm<FormType>({
-    resolver: zodResolver(formScheme),
+    resolver: zodResolver(formSchema),
     defaultValues: {
       name: '',
       channelType: ChannelType.TEXT,

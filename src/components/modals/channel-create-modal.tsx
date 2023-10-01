@@ -40,14 +40,14 @@ export const ChannelCreateModal: FC = () => {
     modalData: { server, channelType: defaultType },
   } = useModalStore(ModalType.CREATE_CHANNEL)
 
-  const formScheme = useMemo(
+  const formSchema = useMemo(
     () => createFormScheme(server?.channels?.map(({ name }) => name)) ?? [],
     [server?.channels],
   )
 
-  type FormType = z.infer<typeof formScheme>
+  type FormType = z.infer<typeof formSchema>
   const form = useForm<FormType>({
-    resolver: zodResolver(formScheme),
+    resolver: zodResolver(formSchema),
     defaultValues: {
       name: '',
       channelType: ChannelType.TEXT,

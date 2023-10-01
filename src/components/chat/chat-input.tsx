@@ -2,7 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import axios from 'axios'
-import { Plus } from 'lucide-react'
+import { Loader2, Plus } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { type FC, useMemo } from 'react'
 import { type ControllerRenderProps, useForm } from 'react-hook-form'
@@ -21,17 +21,17 @@ interface ChatInputProps {
   chatType: ChatType
 }
 
-const formScheme = z.object({
+const formSchema = z.object({
   content: z.string().min(1),
 })
 
-type FormType = z.infer<typeof formScheme>
+type FormType = z.infer<typeof formSchema>
 
 export const ChatInput: FC<ChatInputProps> = ({ apiUrl, chatType, query, name }) => {
   const { onOpenModal } = useModalStore()
   const router = useRouter()
   const form = useForm<FormType>({
-    resolver: zodResolver(formScheme),
+    resolver: zodResolver(formSchema),
     defaultValues: {
       content: '',
     },
@@ -85,7 +85,11 @@ export const ChatInput: FC<ChatInputProps> = ({ apiUrl, chatType, query, name })
                     {...field}
                   />
                   <div className="absolute top-7 right-8">
-                    <EmojiPicker onChange={onEmojiChange(field)} />
+                    {isLoading ? (
+                      <Loader2 className="text-zinc-500 dark:text-zinc-400 animate-spin" />
+                    ) : (
+                      <EmojiPicker onChange={onEmojiChange(field)} />
+                    )}
                   </div>
                 </div>
               </FormControl>
