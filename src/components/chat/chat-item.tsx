@@ -1,58 +1,22 @@
 'use client'
 
+import { zodResolver } from '@hookform/resolvers/zod'
 import { type Member, MemberRole } from '@prisma/client'
-import { Edit, File, Trash } from 'lucide-react'
-import Image from 'next/image'
-import { type FC } from 'react'
+import axios from 'axios'
+import { Edit, Trash } from 'lucide-react'
+import { type FC, useMemo } from 'react'
+import * as z from 'zod'
 
 import { ActionTooltip } from '@/components/action-tooltip'
+import { ChatContentEditing } from '@/components/chat/chat-content-editing'
+import { Form } from '@/components/ui/form'
 import { UserAvatar } from '@/components/user-avatar'
 import { useBoolean } from '@/hooks/use-boolean'
 import { iconMaps } from '@/lib/maps'
 import { cn } from '@/lib/utils'
 import { type MemberWithProfile } from '@/types'
 
-interface AttachmentProps {
-  fileUrl: string | null
-  content: string
-}
-
-const Attachment: FC<AttachmentProps> = ({ fileUrl, content }) => {
-  const fileType = fileUrl?.split('.').pop()
-  const isPdf = fileUrl && fileType === 'pdf'
-  const isImage = fileUrl && !isPdf
-
-  if (isImage) {
-    return (
-      <a
-        href={fileUrl}
-        target="_blank"
-        rel="noopener norferrer"
-        className="relative aspect-square rounded-md mt-2 overflow-hidden border flex items-center bg-secondary h-48 w-48"
-      >
-        <Image src={fileUrl} fill alt={content} className="object-cover" />
-      </a>
-    )
-  }
-
-  if (isPdf) {
-    return (
-      <div className="relative flex items-center p-2 mt-2 rounded-md bg-background/10">
-        <File className="h-10 w-10 fill-indigo-200 stroke-indigo-400" />
-        <a
-          href={fileUrl}
-          target="_blank"
-          rel="noopener norferrer"
-          className="ml-2 text-sm text-indigo-500 dark:text-indigo-400 hover:underline"
-        >
-          PDF File
-        </a>
-      </div>
-    )
-  }
-
-  return null
-}
+import { ChatAttachment } from './chat-attachment'
 
 interface ChatItemProps {
   id: string
@@ -93,6 +57,33 @@ export const ChatItem: FC<ChatItemProps> = ({
 
   const isLoading = false
 
+  const itemContent = useMemo(() => {
+    if (fileUrl) return null
+
+    if (isEditing) {
+      return (
+        <ChatContentEditing
+          id={id}
+          content={content}
+          onCloseEditing={setIsEditingFalse}
+          socketUrl={socketUrl}
+          socketQuery={socketQuery}
+        />
+      )
+    }
+
+    return (
+      <p
+        className={cn('text-sm text-zinc-600 dark:text-zinc-300', {
+          'italic text-zinc-500 dark:text-zinc-400 text-xs mt-1': deleted,
+        })}
+      >
+        {content}
+        {isUpdated && !deleted && <span className="text-[10px] mx-2 text-zinc-500 dark:text-zinc-400">(edited)</span>}
+      </p>
+    )
+  }, [content, deleted, fileUrl, isEditing, isUpdated])
+
   return (
     <div className="relative group flex items-center hover:bg-black/5 p-4 transition w-full">
       <div className="group flex gap-x-2 items-start w-full">
@@ -107,26 +98,18 @@ export const ChatItem: FC<ChatItemProps> = ({
             </div>
             <span className="text-xs text-zinc-500 dark:text-zinc-400">{timestamp}</span>
           </div>
-          <Attachment fileUrl={fileUrl} content={content} />
-          {!fileUrl && !isEditing && (
-            <p
-              className={cn('text-sm text-zinc-600 dark:text-zinc-300', {
-                'italic text-zinc-500 dark:text-zinc-400 text-xs mt-1': deleted,
-              })}
-            >
-              {content}
-              {isUpdated && !deleted && (
-                <span className="text-[10px] mx-2 text-zinc-500 dark:text-zinc-400">(edited)</span>
-              )}
-            </p>
-          )}
+          <ChatAttachment fileUrl={fileUrl} content={content} />
+          {itemContent}
         </div>
       </div>
       {canDeleteMessage && (
         <div className="hidden group-hover:flex items-center gap-x-2 absolute p-1 -top-2 right-5 bg-white dark:bg-zinc-800 border rounded-sm">
           {canEditMessage && (
             <ActionTooltip label="Edit">
-              <Edit className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition" />
+              <Edit
+                onClick={setIsEditingTrue}
+                className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
+              />
             </ActionTooltip>
           )}
           <ActionTooltip label="Delete">
