@@ -56,13 +56,7 @@ export const ChatItem: FC<ChatItemProps> = ({
   const canDeleteMessage = !deleted && (isAdmin || isModerator || isOwner)
   const canEditMessage = !deleted && isOwner && !fileUrl
 
-  const isLoading = false
-
   const handleDelete = () => {
-    console.log({
-      apiUrl: `${socketUrl}/${id}`,
-      query: socketQuery,
-    })
     onOpenModal(ModalType.DELETE_MESSAGE, {
       apiUrl: `${socketUrl}/${id}`,
       query: socketQuery,

@@ -17,7 +17,6 @@ export const EmojiPicker: FC<EmojiPickerProps> = ({ onChange }) => {
   const { resolvedTheme } = useTheme()
 
   const handleChange = (emoji: typeof EmojiType.Props) => {
-    console.log(emoji)
     onChange(emoji.native)
   }
 
