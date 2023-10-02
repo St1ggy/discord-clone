@@ -10,6 +10,7 @@ export * from './invite-modal'
 export * from './members-modal'
 
 export * from './message-file-modal'
+export * from './message-delete-modal'
 
 export * from './channel-create-modal'
 export * from './channel-edit-modal'

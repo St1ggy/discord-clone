@@ -12,6 +12,7 @@ import { ChatContentEditing } from '@/components/chat/chat-content-editing'
 import { Form } from '@/components/ui/form'
 import { UserAvatar } from '@/components/user-avatar'
 import { useBoolean } from '@/hooks/use-boolean'
+import { ModalType, useModalStore } from '@/hooks/use-modal-store'
 import { iconMaps } from '@/lib/maps'
 import { cn } from '@/lib/utils'
 import { type MemberWithProfile } from '@/types'
@@ -44,7 +45,7 @@ export const ChatItem: FC<ChatItemProps> = ({
   content,
 }) => {
   const [isEditing, setIsEditingTrue, setIsEditingFalse] = useBoolean()
-  const [isDeleting, setIsDeletingTrue, setIsDeletingFalse] = useBoolean()
+  const { onOpenModal } = useModalStore()
 
   const roleIcon = iconMaps.roles[member.role]
 
@@ -56,6 +57,17 @@ export const ChatItem: FC<ChatItemProps> = ({
   const canEditMessage = !deleted && isOwner && !fileUrl
 
   const isLoading = false
+
+  const handleDelete = () => {
+    console.log({
+      apiUrl: `${socketUrl}/${id}`,
+      query: socketQuery,
+    })
+    onOpenModal(ModalType.DELETE_MESSAGE, {
+      apiUrl: `${socketUrl}/${id}`,
+      query: socketQuery,
+    })
+  }
 
   const itemContent = useMemo(() => {
     if (fileUrl) return null
@@ -82,7 +94,7 @@ export const ChatItem: FC<ChatItemProps> = ({
         {isUpdated && !deleted && <span className="text-[10px] mx-2 text-zinc-500 dark:text-zinc-400">(edited)</span>}
       </p>
     )
-  }, [content, deleted, fileUrl, isEditing, isUpdated])
+  }, [content, deleted, fileUrl, id, isEditing, isUpdated, setIsEditingFalse, socketQuery, socketUrl])
 
   return (
     <div className="relative group flex items-center hover:bg-black/5 p-4 transition w-full">
@@ -113,7 +125,10 @@ export const ChatItem: FC<ChatItemProps> = ({
             </ActionTooltip>
           )}
           <ActionTooltip label="Delete">
-            <Trash className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition" />
+            <Trash
+              onClick={handleDelete}
+              className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
+            />
           </ActionTooltip>
         </div>
       )}

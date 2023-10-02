@@ -8,6 +8,7 @@ import {
   ChannelEditModal,
   InviteModal,
   MembersModal,
+  MessageDeleteModal,
   MessageFileModal,
   ServerCreateModal,
   ServerDeleteModal,
@@ -37,6 +38,7 @@ export const ModalProvider: FC = () => {
       <MembersModal />
 
       <MessageFileModal />
+      <MessageDeleteModal />
 
       <ChannelCreateModal />
       <ChannelDeleteModal />

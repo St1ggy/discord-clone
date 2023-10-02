@@ -13,6 +13,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponseServerIo) => {
     const profile = await getCurrentProfile(req)
     if (!profile) return res.status(401).json({ error: 'Unauthorized' })
 
+    const { content } = req.body
     const { serverId, channelId, messageId } = req.query as {
       serverId: string
       channelId: string
@@ -21,9 +22,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponseServerIo) => {
     if (!serverId) return res.status(400).json({ error: 'Server ID Missing' })
     if (!channelId) return res.status(400).json({ error: 'Channel ID Missing' })
     if (!messageId) return res.status(400).json({ error: 'Message ID Missing' })
-
-    const { content } = req.body
-    if (!content) return res.status(400).json({ error: 'Content Missing' })
 
     const server = await db.server.findFirst({
       where: {
@@ -56,11 +54,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponseServerIo) => {
     if (!canModify) return res.status(401).json({ error: 'Unauthorized' })
 
     if (req.method === 'DELETE') {
-      message = db.message.update({
+      message = await db.message.update({
         where: { id: messageId },
         data: { deleted: true, fileUrl: null, content: 'This message has been deleted' },
         include: { member: { include: { profile: true } } },
-      }) as unknown as MessageWithMemberWithProfile
+      })
     }
 
     if (req.method === 'PATCH') {
