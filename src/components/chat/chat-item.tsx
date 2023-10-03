@@ -1,15 +1,12 @@
 'use client'
 
-import { zodResolver } from '@hookform/resolvers/zod'
 import { type Member, MemberRole } from '@prisma/client'
-import axios from 'axios'
 import { Edit, Trash } from 'lucide-react'
+import { useParams, useRouter } from 'next/navigation'
 import { type FC, useMemo } from 'react'
-import * as z from 'zod'
 
 import { ActionTooltip } from '@/components/action-tooltip'
 import { ChatContentEditing } from '@/components/chat/chat-content-editing'
-import { Form } from '@/components/ui/form'
 import { UserAvatar } from '@/components/user-avatar'
 import { useBoolean } from '@/hooks/use-boolean'
 import { ModalType, useModalStore } from '@/hooks/use-modal-store'
@@ -44,6 +41,8 @@ export const ChatItem: FC<ChatItemProps> = ({
   timestamp,
   content,
 }) => {
+  const router = useRouter()
+  const params = useParams<{ serverId: string }>()
   const [isEditing, setIsEditingTrue, setIsEditingFalse] = useBoolean()
   const { onOpenModal } = useModalStore()
 
@@ -55,6 +54,11 @@ export const ChatItem: FC<ChatItemProps> = ({
 
   const canDeleteMessage = !deleted && (isAdmin || isModerator || isOwner)
   const canEditMessage = !deleted && isOwner && !fileUrl
+
+  const hanlelMemberClick = () => {
+    if (member.id === currentMember.id) return
+    router.push(`/servers/${params?.serverId}/conversations/${member.id}`)
+  }
 
   const handleDelete = () => {
     onOpenModal(ModalType.DELETE_MESSAGE, {
@@ -93,13 +97,15 @@ export const ChatItem: FC<ChatItemProps> = ({
   return (
     <div className="relative group flex items-center hover:bg-black/5 p-4 transition w-full">
       <div className="group flex gap-x-2 items-start w-full">
-        <div className="cursor-pointer hover:drop-shadow-md transition">
+        <div className="cursor-pointer hover:drop-shadow-md transition" onClick={hanlelMemberClick}>
           <UserAvatar src={member.profile.imageUrl} />
         </div>
         <div className="flex flex-col w-full">
           <div className="flex items-center gap-x-2">
             <div className="flex items-center">
-              <p className="font-semibold text-sm hover:underline cursor-pointer">{member.profile.name}</p>
+              <p className="font-semibold text-sm hover:underline cursor-pointer" onClick={hanlelMemberClick}>
+                {member.profile.name}
+              </p>
               <ActionTooltip label={member.role}>{roleIcon('h-4 w-4 ml-2')}</ActionTooltip>
             </div>
             <span className="text-xs text-zinc-500 dark:text-zinc-400">{timestamp}</span>

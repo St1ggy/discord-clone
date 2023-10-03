@@ -16,8 +16,7 @@ export const GET = async (req: Request) =>
 
     const messages = await db.message.findMany({
       take: MESSAGES_BATCH,
-      skip: 1,
-      ...(cursor ? { cursor: { id: cursor } } : {}),
+      ...(cursor ? { skip: 1, cursor: { id: cursor } } : {}),
       where: { channelId },
       include: { member: { include: { profile: true } } },
       orderBy: { createdAt: 'desc' },
